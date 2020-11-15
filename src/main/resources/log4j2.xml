@@ -3,7 +3,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT" >
             <PatternLayout
-              pattern="%style{%date{ISO8601}}{blue} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
+              pattern="%style{%date{ISO8601}}{white} [%highlight{%level}] [%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" />
         </Console>
 
         <RollingFile name="RollingFile"
@@ -25,13 +25,21 @@
 
     <Loggers>
         <!-- LOG everything at INFO level -->
-        <Root level="info">
+        <Root level="warn">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
 
-        <!-- LOG ".exception" at TRACE level -->
+        <!-- My Application -->
+        <Logger name="io.jlyon.movierental" level="info" />
         <Logger name="io.jlyon.movierental.exception" level="trace" />
+
+        <!-- Core Dependencies -->
+        <Logger name="org.springframework" level="warn" />
+        <Logger name="org.springframework.boot" level="warn" />
+        <Logger name="org.apache.juli" level="warn" />
+        <Logger name="org.hibernate" level="warn" />
+        <Logger name="com.zaxxer.hikari" level="warn"/>
     </Loggers>
 
 </Configuration>

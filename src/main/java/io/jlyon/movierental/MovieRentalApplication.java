@@ -11,5 +11,4 @@ public class MovieRentalApplication {
 		SpringApplication.run(MovieRentalApplication.class, args);
 		System.out.println("\n\n\u001b[32m Movie Rental Application Started!\n\u001b[0m");
 	}
-
 }
