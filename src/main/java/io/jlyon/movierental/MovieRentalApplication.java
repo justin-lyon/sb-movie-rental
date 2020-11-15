@@ -9,7 +9,7 @@ public class MovieRentalApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MovieRentalApplication.class, args);
-		log.info("Movie Rental Application Started!");
+		System.out.println("\n\n\u001b[32m Movie Rental Application Started!\n\u001b[0m");
 	}
 
 }
