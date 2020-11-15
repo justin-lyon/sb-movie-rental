@@ -5,15 +5,10 @@ import io.jlyon.movierental.tmdb.model.MovieSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
-public class Search {
+public class SearchService {
 	public static final String PATH = "search";
 
 	@Autowired
@@ -21,7 +16,11 @@ public class Search {
 	private WebClient.Builder wcb;
 
 	public MovieSearchResponse searchMovies(String queryString) {
-		return searchMovies(queryString, 1, false);
+		return this.searchMovies(queryString, 1);
+	}
+
+	public MovieSearchResponse searchMovies(String queryString, int page) {
+		return this.searchMovies(queryString, page, false);
 	}
 
 	public MovieSearchResponse searchMovies(String queryString, int page, boolean includeAdult) {
@@ -34,6 +33,8 @@ public class Search {
 				.queryParam("include_adult", includeAdult)
 				.queryParam("region", "US")
 				.build())
-			.retrieve().bodyToMono(MovieSearchResponse.class).block();
+			.retrieve()
+			.bodyToMono(MovieSearchResponse.class)
+			.block();
 	}
 }

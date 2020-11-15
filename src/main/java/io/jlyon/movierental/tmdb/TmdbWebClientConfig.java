@@ -1,5 +1,6 @@
 package io.jlyon.movierental.tmdb;
 
+import io.jlyon.movierental.config.RequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,14 @@ public class TmdbWebClientConfig {
 	@Autowired
 	private TmdbConfig config;
 
+	@Autowired
+	private RequestFilter requestLogger;
+
 	@Bean(name = WEB_CLIENT_NAME)
 	public WebClient.Builder getWebClientBuilder() {
 		return WebClient.builder()
 			.baseUrl(BASE_URL + "/" + config.getVersion())
-			.defaultHeader(HttpHeaders.AUTHORIZATION, config.getToken());
+			.defaultHeader(HttpHeaders.AUTHORIZATION, config.getToken())
+			.filter(requestLogger.logRequest());
 	}
 }
