@@ -16,7 +16,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,7 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
-		int millisFromNow = 1000 * 60 * 60 * config.getJwtDurationHours()
+		int millisFromNow = 1000 * 60 * 60 * config.getJwtDurationHours();
 		String token = JWT.create()
 			.withSubject(((UserEntity) auth.getPrincipal()).getUsername())
 			.withExpiresAt(new Date(System.currentTimeMillis() + millisFromNow))
