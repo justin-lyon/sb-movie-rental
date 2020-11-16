@@ -1,21 +1,35 @@
-package io.jlyon.movierental.entity;
+package io.jlyon.movierental.view;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import io.jlyon.movierental.entity.UserEntity;
+
 import java.util.UUID;
 
-@Entity
-@Table(name = "Users")
-public class UserEntity {
-	@Id
-	@GeneratedValue
-	@Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
+@JsonInclude(Include.NON_NULL)
+public class UserView {
 	private UUID id;
-	@Column(nullable = false, length = 30)
 	private String username;
-	@Column(nullable = false, length = 50, unique = true)
 	private String email;
-	@Column(nullable = false, length = 100)
+	@JsonIgnore
 	private String password;
+
+	public UserView() {}
+
+	public UserView(UserEntity ue) {
+		this.setId(ue.getId());
+		this.setUsername(ue.getUsername());
+		this.setEmail(ue.getEmail());
+	}
+
+	public UserEntity toUserEntity() {
+		UserEntity ue = new UserEntity();
+		ue.setUsername(this.getUsername());
+		ue.setEmail(this.getEmail());
+		ue.setId(this.getId());
+		return ue;
+	}
 
 	public UUID getId() {
 		return id;
@@ -51,7 +65,7 @@ public class UserEntity {
 
 	@Override
 	public String toString() {
-		return "UserEntity{" +
+		return "UserView{" +
 			"id=" + id +
 			", username='" + username + '\'' +
 			", email='" + email + '\'' +
