@@ -23,11 +23,9 @@ import static io.jlyon.movierental.security.SecurityConstants.SECRET;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private AuthenticationManager authManager;
-	private AppConfig config;
 
-	public JWTAuthenticationFilter(AuthenticationManager am, AppConfig config) {
+	public JWTAuthenticationFilter(AuthenticationManager am) {
 		this.authManager = am;
-		this.config = config;
 		setFilterProcessesUrl("/api/user/login");
 	}
 
@@ -50,7 +48,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
-		int millisFromNow = 1000 * 60 * 60 * config.getJwtDurationHours();
+		// TODO - Move hours (8) to ConfigurationProperties class
+		int millisFromNow = 1000 * 60 * 60 * 8;
+		// TODO - Update to use io.jsonwebtoken instead of com.auth0
 		String token = JWT.create()
 			.withSubject(((UserEntity) auth.getPrincipal()).getUsername())
 			.withExpiresAt(new Date(System.currentTimeMillis() + millisFromNow))
