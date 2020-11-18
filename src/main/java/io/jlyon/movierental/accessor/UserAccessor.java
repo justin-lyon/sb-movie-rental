@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,12 @@ import java.util.UUID;
 @Service
 public class UserAccessor implements UserDetailsService {
 	public static final String USER_EMAIL_NOT_FOUND_MSG = "That email is not registered.";
+	public static final String EMAIL_ALREADY_REGISTERED_MSG = "This email is already registered.";
 
 	@Autowired
 	private UserRepository repository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String s) {
@@ -30,6 +34,11 @@ public class UserAccessor implements UserDetailsService {
 	}
 
 	public UserEntity createOne(UserEntity newUser) {
+		UserEntity existingUsers = this.getOneByEmail(newUser.getEmail());
+		if (existingUsers != null) {
+			throw new MovieRentalException(EMAIL_ALREADY_REGISTERED_MSG, HttpStatus.CONFLICT);
+		}
+		newUser.setPassword(encoder.encode(newUser.getPassword()));
 		return repository.save(newUser);
 	}
 

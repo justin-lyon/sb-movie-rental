@@ -37,6 +37,7 @@
         <!-- Core Dependencies -->
         <Logger name="org.springframework" level="warn" />
         <Logger name="org.springframework.boot" level="warn" />
+        <Logger name="org.springframework.security" level="warn" />
         <Logger name="org.apache.juli" level="warn" />
         <Logger name="org.hibernate" level="warn" />
         <Logger name="com.zaxxer.hikari" level="warn"/>

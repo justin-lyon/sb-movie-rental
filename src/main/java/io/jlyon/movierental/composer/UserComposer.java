@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserComposer {
-	public static final String EMAIL_ALREADY_REGISTERED_MSG = "This email is already registered.";
 	@Autowired
 	private UserAccessor userAccess;
 	@Autowired
@@ -21,13 +20,7 @@ public class UserComposer {
 	private BCryptPasswordEncoder encoder;
 
 	public String saveNewUser(UserView newUser) {
-		UserEntity existingUsers = userAccess.getOneByEmail(newUser.getEmail());
-		if (existingUsers != null) {
-			throw new MovieRentalException(EMAIL_ALREADY_REGISTERED_MSG, HttpStatus.CONFLICT);
-		}
-
 		UserEntity toSave = newUser.toUserEntity();
-		toSave.setPassword(encoder.encode(newUser.getPassword()));
 
 		return userAccess
 			.createOne(toSave)

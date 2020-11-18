@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class SearchService {
-	public static final String PATH = "search";
+	public static final String PATH = "/search";
 
 	@Autowired
 	@Qualifier(TmdbWebClientConfig.WEB_CLIENT_NAME)

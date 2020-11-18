@@ -12,7 +12,6 @@ public class UserView {
 	private UUID id;
 	private String username;
 	private String email;
-	@JsonIgnore
 	private String password;
 
 	public UserView() {}
@@ -28,6 +27,7 @@ public class UserView {
 		ue.setUsername(this.getUsername());
 		ue.setEmail(this.getEmail());
 		ue.setId(this.getId());
+		ue.setPassword(this.getPassword());
 		return ue;
 	}
 

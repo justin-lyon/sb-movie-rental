@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
-	@Query("FROM UserEntity u WHERE Email = :email")
+	@Query("FROM UserEntity u WHERE u.email = :email")
 	UserEntity findOneByEmail(@Param("email") String email);
+	@Query("FROM UserEntity u WHERE u.username = :username")
+	UserEntity findOneByUsername(@Param("username") String username);
 }

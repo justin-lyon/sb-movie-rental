@@ -3,7 +3,6 @@ package io.jlyon.movierental.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jlyon.movierental.config.AppConfig;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.exception.MovieRentalException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +25,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	public JWTAuthenticationFilter(AuthenticationManager am) {
 		this.authManager = am;
-		setFilterProcessesUrl("/api/user/login");
+		setFilterProcessesUrl(SecurityConstants.LOGIN_URL);
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 			return authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
-					currentUser.getUsername(),
+					currentUser.getEmail(),
 					currentUser.getPassword(),
 					new ArrayList<>())
 			);
@@ -49,6 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
 		// TODO - Move hours (8) to ConfigurationProperties class
+		System.out.println("Begin Successful Authentication");
 		int millisFromNow = 1000 * 60 * 60 * 8;
 		// TODO - Update to use io.jsonwebtoken instead of com.auth0
 		String token = JWT.create()

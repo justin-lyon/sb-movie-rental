@@ -15,8 +15,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static io.jlyon.movierental.security.SecurityConstants.SIGN_UP_URL;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -27,9 +25,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("Configuring Spring Security.");
-		http.cors().and().authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/signup").permitAll()
+		http
+			.csrf().disable()
+			.cors().and().authorizeRequests()
+			.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+//			.antMatchers(HttpMethod.POST, SecurityConstants.LOGIN_URL).permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.addFilter(new JWTAuthenticationFilter(authenticationManager()))

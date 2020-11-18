@@ -20,14 +20,10 @@ public class UserEntity implements UserDetails {
 	private UUID id;
 	@Column(nullable = false, length = 30)
 	private String username;
-	@Column(nullable = false, length = 50, unique = true)
+	@Column(updatable = false, nullable = false, length = 50, unique = true)
 	private String email;
-	@Column(nullable = false, length = 255)
+	@Column(nullable = false)
 	private String password;
-//	@Column(columnDefinition = "default 1")
-//	private boolean isActive;
-//	@Column(columnDefinition = "default 0")
-//	private boolean isLocked;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,24 +32,22 @@ public class UserEntity implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
-//		return this.isActive();
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
-//		return this.isLocked();
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 
 	public UUID getId() {
@@ -87,22 +81,6 @@ public class UserEntity implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-//	public boolean isActive() {
-//		return isActive;
-//	}
-//
-//	public void setActive(boolean active) {
-//		isActive = active;
-//	}
-
-//	public boolean isLocked() {
-//		return isLocked;
-//	}
-//
-//	public void setLocked(boolean locked) {
-//		isLocked = locked;
-//	}
 
 	@Override
 	public String toString() {
