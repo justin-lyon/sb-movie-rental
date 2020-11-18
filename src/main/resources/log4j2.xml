@@ -31,8 +31,9 @@
         </Root>
 
         <!-- My Application -->
-        <Logger name="io.jlyon.movierental" level="info" />
+        <Logger name="io.jlyon.movierental" level="trace" />
         <Logger name="io.jlyon.movierental.exception" level="trace" />
+        <Logger name="io.jlyon.movierental.tmdb" level="trace" />
 
         <!-- Core Dependencies -->
         <Logger name="org.springframework" level="warn" />

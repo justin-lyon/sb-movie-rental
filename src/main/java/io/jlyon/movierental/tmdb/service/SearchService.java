@@ -27,7 +27,7 @@ public class SearchService {
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder
-				.path(PATH + "/movies")
+				.path(PATH + "/movie")
 				.queryParam("query", queryString)
 				.queryParam("page", page)
 				.queryParam("include_adult", includeAdult)
