@@ -5,16 +5,15 @@ import io.jlyon.movierental.tmdb.model.MovieSearchResponse;
 import io.jlyon.movierental.tmdb.service.SearchService;
 import io.jlyon.movierental.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("/movies")
 public class MoviesController {
 

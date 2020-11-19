@@ -3,9 +3,9 @@ package io.jlyon.movierental.view;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.jlyon.movierental.tmdb.model.MovieItem;
-import io.jlyon.movierental.util.InstantUtil;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
@@ -16,7 +16,7 @@ public class MovieView {
 	private String originalLanguage;
 	private String posterPath;
 	private String overview;
-	private Instant releaseDate;
+	private LocalDate releaseDate;
 	private String backdropPath;
 	private List<Integer> genreIds;
 	private Integer voteCount;
@@ -32,7 +32,7 @@ public class MovieView {
 		this.setOriginalLanguage(mi.getOriginalLanguage());
 		this.setPosterPath(mi.getPosterPath());
 		this.setOverview(mi.getOverview());
-		this.setReleaseDate(InstantUtil.iso8601StringToInstant(mi.getReleaseDate()));
+		this.setReleaseDate(mi.getReleaseDate() != null ? LocalDate.parse(mi.getReleaseDate()) : null);
 		this.setBackdropPath(mi.getBackdropPath());
 		this.setGenreIds(mi.getGenreIds());
 		this.setVoteCount(mi.getVoteCount());
@@ -90,11 +90,11 @@ public class MovieView {
 		this.overview = overview;
 	}
 
-	public Instant getReleaseDate() {
+	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
 
-	public void setReleaseDate(Instant releaseDate) {
+	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

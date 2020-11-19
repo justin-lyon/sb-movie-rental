@@ -31,17 +31,18 @@
         </Root>
 
         <!-- My Application -->
-        <Logger name="io.jlyon.movierental" level="trace" />
+        <Logger name="io.jlyon.movierental" level="info" />
+        <Logger name="io.jlyon.movierental.tmdb" level="info" />
         <Logger name="io.jlyon.movierental.exception" level="trace" />
-        <Logger name="io.jlyon.movierental.tmdb" level="trace" />
 
         <!-- Core Dependencies -->
         <Logger name="org.springframework" level="warn" />
         <Logger name="org.springframework.boot" level="warn" />
         <Logger name="org.springframework.security" level="warn" />
-        <Logger name="org.apache.juli" level="warn" />
+        <Logger name="org.springframework.web" level="warn" />
+        <Logger name="org.apache" level="warn" />
         <Logger name="org.hibernate" level="warn" />
-        <Logger name="com.zaxxer.hikari" level="warn"/>
+        <Logger name="com.zaxxer" level="warn"/>
     </Loggers>
 
 </Configuration>
