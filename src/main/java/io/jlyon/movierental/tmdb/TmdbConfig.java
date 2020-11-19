@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "tmdb")
 public class TmdbConfig {
+	public static final String TMDB_IMG_BASE_URL = "https://image.tmdb.org/t/p/";
 	private String token;
 
 	private String version;

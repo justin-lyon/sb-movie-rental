@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
