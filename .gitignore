@@ -1,3 +1,7 @@
+# Secrets Config
+**/application-secrets.properties
+
+# App
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
