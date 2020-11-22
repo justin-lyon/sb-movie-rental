@@ -1,5 +1,6 @@
 package io.jlyon.movierental.security;
 
+import io.jlyon.movierental.MovieRentalApplication;
 import io.jlyon.movierental.accessor.UserAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MovieRentalApplication.class);
+
+	@Autowired
+	private SecurityConfig securityConfig;
 	@Autowired
 	private UserAccessor userAccessor;
 	@Autowired
@@ -25,15 +30,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+//		log.info("jwt.secret: {}", securityConfig.getSecret());
+//		log.info("jwt.durationHours: {}", securityConfig.getDurationHours());
 		http
 			.csrf().disable()
 			.cors().and().authorizeRequests()
 			.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
-//			.antMatchers(HttpMethod.POST, SecurityConstants.LOGIN_URL).permitAll()
 			.anyRequest().authenticated()
 			.and()
-			.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-			.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+			.addFilter(new JWTAuthenticationFilter(authenticationManager(), securityConfig))
+			.addFilter(new JWTAuthorizationFilter(authenticationManager(), securityConfig))
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 

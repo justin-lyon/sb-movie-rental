@@ -2,6 +2,7 @@ package io.jlyon.movierental.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static io.jlyon.movierental.security.SecurityConstants.SECRET;
-import static io.jlyon.movierental.security.SecurityConstants.TOKEN_PREFIX;
+import static io.jlyon.movierental.security.SecurityConstants.BEARER_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	public JWTAuthorizationFilter(AuthenticationManager authManager) {
+	private SecurityConfig securityConfig;
+
+	public JWTAuthorizationFilter(AuthenticationManager authManager, SecurityConfig sc) {
 		super(authManager);
+		this.securityConfig = sc;
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		FilterChain chain) throws IOException, ServletException {
 
 		String header = req.getHeader(HttpHeaders.AUTHORIZATION);
-		if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+		if (header == null || !header.startsWith(BEARER_PREFIX)) {
 			chain.doFilter(req, res);
 			return;
 		}
@@ -45,9 +48,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		String token = req.getHeader(HttpHeaders.AUTHORIZATION);
 		// TODO - Need a String Util
 		if (token != null && !token.isBlank() && !token.isEmpty()) {
-			String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+			String user = JWT.require(Algorithm.HMAC512(securityConfig.getSecret().getBytes()))
 				.build()
-				.verify(token.replace(TOKEN_PREFIX, ""))
+				.verify(token.replace(BEARER_PREFIX, ""))
 				.getSubject();
 
 			if (user != null) {

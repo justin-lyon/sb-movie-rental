@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.exception.MovieRentalException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,10 +22,13 @@ import java.util.Date;
 import static io.jlyon.movierental.security.SecurityConstants.SECRET;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+	@Autowired
+	private SecurityConfig securityConfig;
 	private AuthenticationManager authManager;
 
-	public JWTAuthenticationFilter(AuthenticationManager am) {
+	public JWTAuthenticationFilter(AuthenticationManager am, SecurityConfig sc) {
 		this.authManager = am;
+		this.securityConfig = sc;
 		setFilterProcessesUrl(SecurityConstants.LOGIN_URL);
 	}
 
@@ -54,7 +58,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = JWT.create()
 			.withSubject(((UserEntity) auth.getPrincipal()).getUsername())
 			.withExpiresAt(new Date(System.currentTimeMillis() + millisFromNow))
-			.sign(Algorithm.HMAC512(SECRET.getBytes()));
+			.sign(Algorithm.HMAC512(securityConfig.getSecret().getBytes()));
 
 		String body = ((UserEntity) auth.getPrincipal()).getUsername() + " " + token;
 		res.getWriter().write(body);

@@ -134,4 +134,15 @@
         </plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>secrets</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>secrets</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 </project>
