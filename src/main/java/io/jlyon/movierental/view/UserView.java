@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @JsonInclude(Include.NON_NULL)
 public class UserView {
+	// TODO - Create a separate view for Creds.
 	private UUID id;
 	private String username;
 	private String email;
