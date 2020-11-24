@@ -8,11 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.Collection;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "Users", uniqueConstraints = {
+	@UniqueConstraint(name = "user_unique_email_idx", columnNames = "email")
+})
 public class UserEntity implements UserDetails {
 	@Id
 	@GeneratedValue
