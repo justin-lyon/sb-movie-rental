@@ -1,39 +1,22 @@
 package io.jlyon.movierental.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.jlyon.movierental.entity.UserEntity;
 
-import java.util.UUID;
-
-@JsonInclude(Include.NON_NULL)
-public class UserView {
-	private UUID id;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class NewUserView {
 	private String username;
 	private String email;
+	private String password;
 
-	public UserView() {}
-
-	public UserView(UserEntity ue) {
-		this.setId(ue.getId());
-		this.setUsername(ue.getUsername());
-		this.setEmail(ue.getEmail());
-	}
+	public NewUserView() {}
 
 	public UserEntity toUserEntity() {
 		UserEntity ue = new UserEntity();
 		ue.setUsername(this.getUsername());
 		ue.setEmail(this.getEmail());
-		ue.setId(this.getId());
+		ue.setPassword(this.getPassword());
 		return ue;
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
 	}
 
 	public String getUsername() {
@@ -52,11 +35,18 @@ public class UserView {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "UserView{" +
-			"id=" + id +
-			", username='" + username + '\'' +
+		return "NewUserView{" +
+			"username='" + username + '\'' +
 			", email='" + email + '\'' +
 			'}';
 	}
