@@ -1,25 +1,38 @@
 package io.jlyon.movierental.tmdb.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
+@JsonInclude(NON_NULL)
 public class MovieItem {
 	private Integer id;
 	private String title;
-	private String original_title;
-	private String original_language;
-	private String poster_path;
+	@JsonProperty("original_title")
+	private String originalTitle;
+	@JsonProperty("original_language")
+	private String originalLanguage;
+	@JsonProperty("poster_path")
+	private String posterPath;
 	private String overview;
-	private String release_date;
-	private String backdrop_path;
-	private List<Integer> genre_ids;
-	private int vote_count;
+	@JsonProperty("release_date")
+	private String releaseDate;
+	@JsonProperty("backdrop_path")
+	private String backdropPath;
+	@JsonProperty("genre_ids")
+	private List<Integer> genreIds;
+	@JsonProperty("vote_count")
+	private int voteCount;
 	private Double popularity;
-	private Double vote_average;
-	private boolean adult;
-	private boolean video;
+	@JsonProperty("vote_average")
+	private Double voteAverage;
+	@JsonProperty("adult")
+	private boolean isAdult;
+	@JsonProperty("video")
+	private boolean isVideo;
 
 	public Integer getId() {
 		return id;
@@ -38,27 +51,27 @@ public class MovieItem {
 	}
 
 	public String getOriginalTitle() {
-		return original_title;
+		return originalTitle;
 	}
 
-	public void setOriginalTitle(String original_title) {
-		this.original_title = original_title;
+	public void setOriginalTitle(String originalTitle) {
+		this.originalTitle = originalTitle;
 	}
 
 	public String getOriginalLanguage() {
-		return original_language;
+		return originalLanguage;
 	}
 
-	public void setOriginalLanguage(String original_language) {
-		this.original_language = original_language;
+	public void setOriginalLanguage(String originalLanguage) {
+		this.originalLanguage = originalLanguage;
 	}
 
 	public String getPosterPath() {
-		return poster_path;
+		return posterPath;
 	}
 
-	public void setPosterPath(String poster_path) {
-		this.poster_path = poster_path;
+	public void setPosterPath(String posterPath) {
+		this.posterPath = posterPath;
 	}
 
 	public String getOverview() {
@@ -70,35 +83,35 @@ public class MovieItem {
 	}
 
 	public String getReleaseDate() {
-		return release_date;
+		return releaseDate;
 	}
 
-	public void setReleaseDate(String release_date) {
-		this.release_date = release_date;
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
 	}
 
 	public String getBackdropPath() {
-		return backdrop_path;
+		return backdropPath;
 	}
 
-	public void setBackdropPath(String backdrop_path) {
-		this.backdrop_path = backdrop_path;
+	public void setBackdropPath(String backdropPath) {
+		this.backdropPath = backdropPath;
 	}
 
 	public List<Integer> getGenreIds() {
-		return genre_ids;
+		return genreIds;
 	}
 
-	public void setGenreIds(List<Integer> genre_ids) {
-		this.genre_ids = genre_ids;
+	public void setGenreIds(List<Integer> genreIds) {
+		this.genreIds = genreIds;
 	}
 
 	public int getVoteCount() {
-		return vote_count;
+		return voteCount;
 	}
 
-	public void setVoteCount(int vote_count) {
-		this.vote_count = vote_count;
+	public void setVoteCount(int voteCount) {
+		this.voteCount = voteCount;
 	}
 
 	public Double getPopularity() {
@@ -110,26 +123,26 @@ public class MovieItem {
 	}
 
 	public Double getVoteAverage() {
-		return vote_average;
+		return voteAverage;
 	}
 
-	public void setVoteAverage(Double vote_average) {
-		this.vote_average = vote_average;
+	public void setVoteAverage(Double voteAverage) {
+		this.voteAverage = voteAverage;
 	}
 
 	public boolean isAdult() {
-		return adult;
+		return isAdult;
 	}
 
-	public void setIsAdult(boolean adult) {
-		this.adult = adult;
+	public void setAdult(boolean adult) {
+		isAdult = adult;
 	}
 
-	public boolean hasVideo() {
-		return video;
+	public boolean isVideo() {
+		return isVideo;
 	}
 
-	public void setHasVideo(boolean video) {
-		this.video = video;
+	public void setIsVideo(boolean video) {
+		isVideo = video;
 	}
 }

@@ -1,13 +1,15 @@
 package io.jlyon.movierental.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@JsonInclude(Include.NON_NULL)
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
+@JsonInclude(NON_NULL)
 public class MovieView {
 	private String id;
 	private String title;
@@ -21,8 +23,10 @@ public class MovieView {
 	private Integer voteCount;
 	private Double popularity;
 	private Double voteAverage;
+	@JsonProperty
 	private boolean isAdult;
-	private boolean hasVideo;
+	@JsonProperty
+	private boolean isVideo;
 
 	public MovieView(MovieItem mi) {
 		this.setId(mi.getId().toString());
@@ -38,7 +42,7 @@ public class MovieView {
 		this.setPopularity(mi.getPopularity());
 		this.setVoteAverage(mi.getVoteAverage());
 		this.setIsAdult(mi.isAdult());
-		this.setHasVideo(mi.hasVideo());
+		this.setIsVideo(mi.isVideo());
 	}
 
 	public String getId() {
@@ -137,7 +141,7 @@ public class MovieView {
 		this.voteAverage = voteAverage;
 	}
 
-	public boolean isAdult() {
+	public boolean getIsAdult() {
 		return isAdult;
 	}
 
@@ -145,11 +149,11 @@ public class MovieView {
 		isAdult = adult;
 	}
 
-	public boolean hasVideo() {
-		return hasVideo;
+	public boolean getIsVideo() {
+		return isVideo;
 	}
 
-	public void setHasVideo(boolean hasVideo) {
-		this.hasVideo = hasVideo;
+	public void setIsVideo(boolean isVideo) {
+		this.isVideo = isVideo;
 	}
 }
