@@ -21,7 +21,6 @@ public class RegistrationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@Transactional(rollbackFor = Exception.class)
 	public UserView signUp(@RequestBody NewUserView newUser) {
-		System.out.println("new user coming " + newUser);
 		return composer.saveNewUser(newUser);
 	}
 }
