@@ -1,5 +1,6 @@
 package io.jlyon.movierental.controller;
 
+import com.sun.istack.NotNull;
 import io.jlyon.movierental.composer.UserComposer;
 import io.jlyon.movierental.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;

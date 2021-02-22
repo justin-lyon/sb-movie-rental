@@ -26,7 +26,6 @@ public class MoviesController {
 
 	@GetMapping
 	public List<MovieView> searchMovies(@RequestParam @NotNull final String searchString) {
-		// TODO - UNDERSTAND - Why do I get less data than the API Gives?
 		MovieSearchResponse response = searchService.searchMovies(searchString);
 		return response
 			.getResults()

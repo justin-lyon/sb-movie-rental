@@ -20,7 +20,7 @@ public class SearchService {
 	@Qualifier(TmdbWebClientConfig.WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public MovieSearchResponse searchMovies(String queryString) {
+	public MovieSearchResponse searchMovies(@NotNull String queryString) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.put("query", Collections.singletonList(queryString));
 		params.put("page", Collections.singletonList(String.valueOf(1)));

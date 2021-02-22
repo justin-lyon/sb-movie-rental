@@ -20,7 +20,7 @@ public class RegistrationController {
 	@PostMapping("/signup")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Transactional(rollbackFor = Exception.class)
-	public UserView signUp(@RequestBody NewUserView newUser) {
+	public UserView signup(@RequestBody NewUserView newUser) {
 		return composer.saveNewUser(newUser);
 	}
 }
