@@ -19,7 +19,7 @@ public class UserAccessor implements UserDetailsService {
 	public static final String EMAIL_ALREADY_REGISTERED_MSG = "This email is already registered.";
 
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repo;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
@@ -38,22 +38,22 @@ public class UserAccessor implements UserDetailsService {
 			throw new MovieRentalException(EMAIL_ALREADY_REGISTERED_MSG, HttpStatus.CONFLICT);
 		}
 		newUser.setPassword(encoder.encode(newUser.getPassword()));
-		return repository.save(newUser);
+		return repo.save(newUser);
 	}
 
 	public List<UserEntity> getAll() {
-		return repository.findAll();
+		return repo.findAll();
 	}
 
 	public UserEntity getOneById(UUID id) {
-		return repository.getOne(id);
+		return repo.getOne(id);
 	}
 
 	public UserEntity getOneByEmail(String email) {
-		return repository.findOneByEmail(email);
+		return repo.findOneByEmail(email);
 	}
 
 	public UserEntity updateUser(UserEntity newUser) {
-		return repository.getOne(newUser.getId());
+		return repo.getOne(newUser.getId());
 	}
 }
