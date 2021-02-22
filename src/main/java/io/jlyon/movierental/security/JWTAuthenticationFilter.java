@@ -21,8 +21,8 @@ import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	@Autowired
-	private SecurityConfig securityConfig;
-	private AuthenticationManager authManager;
+	private final SecurityConfig securityConfig;
+	private final AuthenticationManager authManager;
 
 	public JWTAuthenticationFilter(AuthenticationManager am, SecurityConfig sc) {
 		this.authManager = am;

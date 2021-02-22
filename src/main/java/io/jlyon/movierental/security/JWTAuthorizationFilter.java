@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import static io.jlyon.movierental.security.SecurityConstants.BEARER_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-	private SecurityConfig securityConfig;
+	private final SecurityConfig securityConfig;
 
 	public JWTAuthorizationFilter(AuthenticationManager authManager, SecurityConfig sc) {
 		super(authManager);
