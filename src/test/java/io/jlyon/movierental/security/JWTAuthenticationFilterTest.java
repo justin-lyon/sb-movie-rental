@@ -26,6 +26,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -94,5 +95,12 @@ class JWTAuthenticationFilterTest {
 
 		assertEquals(HttpStatus.FORBIDDEN, mre.getStatus());
 		assertEquals(message, mre.getMessage());
+	}
+
+	@Test
+	public void successfulAuthentication_shouldBeTestedNEXT() {
+		// TODO - Mock Sec Config
+		// TODO - Replace com.auth0 with io.jsonwebtoken
+		fail();
 	}
 }
