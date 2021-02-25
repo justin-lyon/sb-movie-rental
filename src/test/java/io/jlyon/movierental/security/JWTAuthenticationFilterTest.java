@@ -100,6 +100,6 @@ class JWTAuthenticationFilterTest {
 	@Test
 	public void successfulAuthentication_shouldBeTestedNEXT() {
 		// TODO - Mock Sec Config
-//		fail();
+		fail();
 	}
 }
