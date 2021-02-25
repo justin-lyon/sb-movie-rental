@@ -1,8 +1,8 @@
 package io.jlyon.movierental.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,10 +48,15 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		String token = req.getHeader(HttpHeaders.AUTHORIZATION);
 		// TODO - Need a String Util
 		if (token != null && !token.isBlank() && !token.isEmpty()) {
-			String user = JWT.require(Algorithm.HMAC512(securityConfig.getSecret().getBytes()))
+			String jwsString = token.replace(BEARER_PREFIX, "");
+
+			Jws<Claims> jws = Jwts
+				.parserBuilder()
+				.setSigningKey(securityConfig.getSecretKey())
 				.build()
-				.verify(token.replace(BEARER_PREFIX, ""))
-				.getSubject();
+				.parseClaimsJws(jwsString);
+
+			String user = jws.getBody().getSubject();
 
 			if (user != null) {
 				// new ArrayList means authorities/scopes

@@ -1,11 +1,10 @@
 package io.jlyon.movierental.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.exception.MovieRentalException;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.JwsHeader;
+import io.jsonwebtoken.Jwts;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,13 +53,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
 		int millisFromNow = 1000 * 60 * 60 * securityConfig.getDurationHours();
-		// TODO - Update to use io.jsonwebtoken instead of com.auth0
-		String token = JWT.create()
-			.withSubject(((UserEntity) auth.getPrincipal()).getUsername())
-			.withExpiresAt(new Date(System.currentTimeMillis() + millisFromNow))
-			.sign(Algorithm.HMAC512(securityConfig.getSecret().getBytes()));
+		String jws = Jwts.builder()
+			.setHeaderParam(JwsHeader.KEY_ID, 1)
+			.setIssuer("io.jlyon.movierental")
+			.setSubject(((UserEntity) auth.getPrincipal()).getUsername())
+			.setExpiration(new Date(System.currentTimeMillis() + millisFromNow))
+			.signWith(securityConfig.getSecretKey())
+			.compact();
 
-		String body = ((UserEntity) auth.getPrincipal()).getUsername() + " " + token;
+		String body = ((UserEntity) auth.getPrincipal()).getUsername() + " " + jws;
 		res.getWriter().write(body);
 		res.getWriter().flush();
 	}

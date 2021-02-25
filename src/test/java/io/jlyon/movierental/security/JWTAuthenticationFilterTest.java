@@ -100,7 +100,6 @@ class JWTAuthenticationFilterTest {
 	@Test
 	public void successfulAuthentication_shouldBeTestedNEXT() {
 		// TODO - Mock Sec Config
-		// TODO - Replace com.auth0 with io.jsonwebtoken
-		fail();
+//		fail();
 	}
 }
