@@ -3,6 +3,8 @@ package io.jlyon.movierental.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.exception.MovieRentalException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,23 +17,32 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.crypto.SecretKey;
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class JWTAuthenticationFilterTest {
+	public static final int DURATION_HOURS = 1;
+
 	@InjectMocks
 	private JWTAuthenticationFilter filter;
 
@@ -43,8 +54,14 @@ class JWTAuthenticationFilterTest {
 	private HttpServletRequest req;
 	@Mock
 	private HttpServletResponse res;
+	@Mock
+	private FilterChain chain;
+	@Mock
+	private Authentication auth;
 
 	private UserEntity bob;
+	private final SecretKey secret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
 	@Spy
 	private DelegatingServletInputStream sis;
 
@@ -63,8 +80,15 @@ class JWTAuthenticationFilterTest {
 				bobString.getBytes(StandardCharsets.UTF_8)));
 
 		initMocks(this);
+		when(auth.getPrincipal()).thenReturn(bob);
 		when(manager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(new UsernamePasswordAuthenticationToken("something", "anything", Collections.emptyList()));
 		when(req.getInputStream()).thenReturn(sis);
+		when(config.getDurationHours()).thenReturn(DURATION_HOURS);
+		when(config.getSecretKey()).thenReturn(secret);
+
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		when(res.getWriter()).thenReturn(pw);
 	}
 
 	@Test
@@ -98,8 +122,14 @@ class JWTAuthenticationFilterTest {
 	}
 
 	@Test
-	public void successfulAuthentication_shouldBeTestedNEXT() {
-		// TODO - Mock Sec Config
-		fail();
+	public void successfulAuthentication_shouldBeTestedNEXT() throws IOException {
+		assertDoesNotThrow(() -> filter.successfulAuthentication(req, res, chain, auth));
+		verify(config, times(1)).getDurationHours();
+		verify(config, times(1)).getSecretKey();
+		verify(auth, times(1)).getPrincipal();
+		verify(res, times(2)).getWriter();
+
 	}
+
+
 }

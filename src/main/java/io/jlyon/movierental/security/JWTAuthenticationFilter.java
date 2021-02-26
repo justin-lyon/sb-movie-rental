@@ -53,15 +53,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException {
 		int millisFromNow = 1000 * 60 * 60 * securityConfig.getDurationHours();
+		String username = ((UserEntity) auth.getPrincipal()).getUsername();
 		String jws = Jwts.builder()
 			.setHeaderParam(JwsHeader.KEY_ID, 1)
 			.setIssuer("io.jlyon.movierental")
-			.setSubject(((UserEntity) auth.getPrincipal()).getUsername())
+			.setSubject(username)
 			.setExpiration(new Date(System.currentTimeMillis() + millisFromNow))
 			.signWith(securityConfig.getSecretKey())
 			.compact();
 
-		String body = ((UserEntity) auth.getPrincipal()).getUsername() + " " + jws;
+		String body = username + " " + jws;
 		res.getWriter().write(body);
 		res.getWriter().flush();
 	}

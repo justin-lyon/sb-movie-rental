@@ -18,22 +18,14 @@ import javax.crypto.SecretKey;
 @Slf4j
 public class SecurityConfig {
 	public static final String BCRYPT_ENCODER = "bcrypt_encoder";
+
 	@Bean(name = BCRYPT_ENCODER)
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
-	private String secret;
 	private int durationHours;
 	private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512); // HS256, HS384, or HS512;
-
-	public String getSecret() {
-		return secret;
-	}
-
-	public void setSecret(String secret) {
-		this.secret = secret;
-	}
 
 	public int getDurationHours() {
 		return durationHours;
@@ -44,7 +36,6 @@ public class SecurityConfig {
 	}
 
 	public SecretKey getSecretKey() {
-		log.info("Secret Key: {}", Encoders.BASE64.encode(key.getEncoded()));
 		return this.key;
 	}
 }
