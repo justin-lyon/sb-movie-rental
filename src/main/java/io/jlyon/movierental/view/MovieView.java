@@ -35,7 +35,7 @@ public class MovieView {
 		this.setOriginalLanguage(mi.getOriginalLanguage());
 		this.setPosterPath(mi.getPosterPath());
 		this.setOverview(mi.getOverview());
-		this.setReleaseDate(mi.getReleaseDate() != null ? LocalDate.parse(mi.getReleaseDate()) : null);
+		this.setReleaseDate(mi.getReleaseDate() != null && !mi.getReleaseDate().isEmpty() ? LocalDate.parse(mi.getReleaseDate()) : null);
 		this.setBackdropPath(mi.getBackdropPath());
 		this.setGenreIds(mi.getGenreIds());
 		this.setVoteCount(mi.getVoteCount());
