@@ -1,5 +1,6 @@
 package io.jlyon.movierental.tmdb.service;
 
+import com.sun.istack.NotNull;
 import io.jlyon.movierental.tmdb.TmdbWebClientConfig;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class MovieService {
 	@Qualifier(TmdbWebClientConfig.WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public MovieItem queryMovieById(int movieId) {
+	public MovieItem queryMovieById(@NotNull int movieId) {
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder

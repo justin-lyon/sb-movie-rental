@@ -1,5 +1,6 @@
 package io.jlyon.movierental.composer;
 
+import com.sun.istack.NotNull;
 import io.jlyon.movierental.accessor.UserAccessor;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.security.SecurityConfig;
@@ -20,12 +21,12 @@ public class UserComposer {
 	@Qualifier(SecurityConfig.BCRYPT_ENCODER)
 	private BCryptPasswordEncoder encoder;
 
-	public UserView getUserById(String userId) {
+	public UserView getUserById(@NotNull String userId) {
 		UserEntity foundUser = userAccess.getOneById(UUID.fromString(userId));
 		return new UserView(foundUser);
 	}
 
-	public UserView saveNewUser(NewUserView newUser) {
+	public UserView saveNewUser(@NotNull NewUserView newUser) {
 		UserEntity toSave = newUser.toUserEntity();
 
 		return new UserView( userAccess.createOne(toSave) );

@@ -3,10 +3,12 @@ package io.jlyon.movierental;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.core.SpringVersion;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
 @SpringBootApplication
+@EntityScan(basePackages="io.jlyon.movierental.entity")
 public class MovieRentalApplication {
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MovieRentalApplication.class);
 

@@ -1,5 +1,6 @@
 package io.jlyon.movierental.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +17,8 @@ import java.util.UUID;
 @Table(name = "Users", uniqueConstraints = {
 	@UniqueConstraint(name = "user_unique_email_idx", columnNames = "email")
 })
-public class UserEntity implements UserDetails {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserEntity extends Auditable implements UserDetails {
 	@Id
 	@GeneratedValue
 	@Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")

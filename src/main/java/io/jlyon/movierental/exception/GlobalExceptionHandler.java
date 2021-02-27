@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MovieRentalApplication.class);
+	public static final String DEFAULT_ERROR_MESSAGE = "Woops! Sorry, that wasn't supposed to happen.";
 
 	@ExceptionHandler(MovieRentalException.class)
 	public ErrorBody applicationHandler(MovieRentalException mre, HttpServletResponse response) {
@@ -24,6 +25,6 @@ public class GlobalExceptionHandler {
 	public ErrorBody catchAll(Exception exc) {
 		log.warn("Unhandled Exception in Application {}", exc.getMessage());
 		exc.printStackTrace();
-		return new ErrorBody("Woops! Sorry, that wasn't supposed to happen.");
+		return new ErrorBody(DEFAULT_ERROR_MESSAGE);
 	}
 }

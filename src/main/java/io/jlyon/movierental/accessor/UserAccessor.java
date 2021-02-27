@@ -1,5 +1,6 @@
 package io.jlyon.movierental.accessor;
 
+import com.sun.istack.NotNull;
 import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.exception.MovieRentalException;
 import io.jlyon.movierental.repository.UserRepository;
@@ -19,12 +20,12 @@ public class UserAccessor implements UserDetailsService {
 	public static final String EMAIL_ALREADY_REGISTERED_MSG = "This email is already registered.";
 
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repo;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@Override
-	public UserDetails loadUserByUsername(String s) {
+	public UserDetails loadUserByUsername(@NotNull String s) {
 		UserEntity user = this.getOneByEmail(s);
 		if (user == null) {
 			throw new MovieRentalException(USER_EMAIL_NOT_FOUND_MSG, HttpStatus.NOT_FOUND);
@@ -32,28 +33,24 @@ public class UserAccessor implements UserDetailsService {
 		return user;
 	}
 
-	public UserEntity createOne(UserEntity newUser) {
+	public UserEntity createOne(@NotNull UserEntity newUser) {
 		UserEntity existingUsers = this.getOneByEmail(newUser.getEmail());
 		if (existingUsers != null) {
 			throw new MovieRentalException(EMAIL_ALREADY_REGISTERED_MSG, HttpStatus.CONFLICT);
 		}
 		newUser.setPassword(encoder.encode(newUser.getPassword()));
-		return repository.save(newUser);
+		return repo.save(newUser);
 	}
 
 	public List<UserEntity> getAll() {
-		return repository.findAll();
+		return repo.findAll();
 	}
 
-	public UserEntity getOneById(UUID id) {
-		return repository.getOne(id);
+	public UserEntity getOneById(@NotNull UUID id) {
+		return repo.getOne(id);
 	}
 
-	public UserEntity getOneByEmail(String email) {
-		return repository.findOneByEmail(email);
-	}
-
-	public UserEntity updateUser(UserEntity newUser) {
-		return repository.getOne(newUser.getId());
+	public UserEntity getOneByEmail(@NotNull String email) {
+		return repo.findOneByEmail(email);
 	}
 }
