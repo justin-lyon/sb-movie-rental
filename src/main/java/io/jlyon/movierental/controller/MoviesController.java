@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/movies")
 public class MoviesController {
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MoviesController.class);
 
 	@Autowired
 	private SearchService searchService;
@@ -26,6 +27,7 @@ public class MoviesController {
 
 	@GetMapping
 	public List<MovieView> searchMovies(@RequestParam @NotNull final String searchString) {
+		log.info("Searching Movies for: {}", searchString);
 		MovieSearchResponse response = searchService.searchMovies(searchString);
 		return response
 			.getResults()
@@ -36,6 +38,7 @@ public class MoviesController {
 
 	@GetMapping("/{movieId}")
 	public MovieView getMovieById(@PathVariable int movieId) {
+		log.info("Get movie: {}", movieId);
 		return new MovieView(movieService.queryMovieById(movieId));
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserComposer composer;
@@ -20,6 +21,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	@Transactional
 	public UserView getUserById(@PathVariable("id") String userId) {
+		log.info("Get User: {}", userId);
 		return composer.getUserById(userId);
 	}
 }

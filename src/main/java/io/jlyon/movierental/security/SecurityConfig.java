@@ -1,9 +1,7 @@
 package io.jlyon.movierental.security;
 
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +13,6 @@ import javax.crypto.SecretKey;
 @Component
 @Configuration
 @ConfigurationProperties("jwt")
-@Slf4j
 public class SecurityConfig {
 	public static final String BCRYPT_ENCODER = "bcrypt_encoder";
 
