@@ -1,7 +1,6 @@
 package io.jlyon.movierental.tmdb.service;
 
 import com.sun.istack.NotNull;
-import io.jlyon.movierental.tmdb.TmdbWebClientConfig;
 import io.jlyon.movierental.tmdb.model.MovieSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,12 +11,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 
+import static io.jlyon.movierental.tmdb.TmdbWebClientConfig.WEB_CLIENT_NAME;
+
 @Service
 public class SearchService {
 	public static final String PATH = "/search";
 
 	@Autowired
-	@Qualifier(TmdbWebClientConfig.WEB_CLIENT_NAME)
+	@Qualifier(WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
 	public MovieSearchResponse searchMovies(@NotNull String queryString) {

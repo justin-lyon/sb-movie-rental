@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
-public abstract class PaginatedResponse {
+public abstract class Paginateable {
 	private int page;
 	private int total_results;
 	private int total_pages;

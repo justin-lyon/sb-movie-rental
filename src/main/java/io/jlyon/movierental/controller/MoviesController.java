@@ -36,6 +36,11 @@ public class MoviesController {
 			.collect(Collectors.toList());
 	}
 
+	@GetMapping("/discover")
+	public List<MovieView> discoverMovies() {
+
+	}
+
 	@GetMapping("/{movieId}")
 	public MovieView getMovieById(@PathVariable int movieId) {
 		log.info("Get movie: {}", movieId);
