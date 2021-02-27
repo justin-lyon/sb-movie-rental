@@ -18,7 +18,7 @@ import java.util.UUID;
 	@UniqueConstraint(name = "user_unique_email_idx", columnNames = "email")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserEntity implements UserDetails {
+public class UserEntity extends Auditable implements UserDetails {
 	@Id
 	@GeneratedValue
 	@Column(updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")

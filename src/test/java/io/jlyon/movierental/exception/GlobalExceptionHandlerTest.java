@@ -57,7 +57,7 @@ class GlobalExceptionHandlerTest {
 		assertEquals(DEFAULT_ERROR_MESSAGE, error.getMessage());
 	}
 
-	static class TestException extends Exception {
+	private static class TestException extends Exception {
 		public TestException(String message) {
 			super(message);
 		}
