@@ -47,7 +47,7 @@ public class MoviesController {
 	}
 
 	@GetMapping("/genres")
-	public List<GenreOption> getGenre() {
+	public List<GenreOption> getGenres() {
 		log.info("Getting Movie Genres...");
 		return composer.getMovieGenres();
 	}
