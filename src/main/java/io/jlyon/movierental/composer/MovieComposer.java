@@ -6,6 +6,7 @@ import io.jlyon.movierental.tmdb.model.Genre;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
 import io.jlyon.movierental.tmdb.service.SearchService;
+import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.GenreOption;
 import io.jlyon.movierental.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,13 @@ public class MovieComposer {
 	@Autowired
 	private DiscoverService discoverService;
 
+	private MovieItemToView toMovieView;
+
 	public List<MovieView> searchMovies(@NotNull final String searchTerm) {
 		return searchService.searchMovies(searchTerm)
 			.getResults()
 			.stream()
-			.map(MovieView::new)
+			.map(toMovieView::transform)
 			.collect(Collectors.toList());
 	}
 
@@ -38,7 +41,7 @@ public class MovieComposer {
 		return discoverService.getDiscoverMovie()
 			.getResults()
 			.stream()
-			.map(MovieView::new)
+			.map(toMovieView::transform)
 			.collect(Collectors.toList());
 	}
 
@@ -49,12 +52,12 @@ public class MovieComposer {
 
 		return discoverService.getDiscoverMovie(genreIds).getResults()
 			.stream()
-			.map(MovieView::new)
+			.map(toMovieView::transform)
 			.collect(Collectors.toList());
 	}
 
 	public MovieView getMovieById(@NotNull final int movieId) {
-		return new MovieView(movieService.queryMovieById(movieId));
+		return toMovieView.transform(movieService.queryMovieById(movieId));
 	}
 
 	public List<GenreOption> getMovieGenres() {

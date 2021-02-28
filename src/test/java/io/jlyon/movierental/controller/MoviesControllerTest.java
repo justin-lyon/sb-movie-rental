@@ -2,6 +2,7 @@ package io.jlyon.movierental.controller;
 
 import io.jlyon.movierental.composer.MovieComposer;
 import io.jlyon.movierental.tmdb.model.MovieItem;
+import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.MovieView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ class MoviesControllerTest {
 	@Mock
 	private MovieComposer composer;
 
+	private MovieItemToView toMovieView = new MovieItemToView();
 	private MovieItem theGoonies = new MovieItem();
 	private List<MovieView> movies = new ArrayList<>();
 	@BeforeEach
@@ -33,13 +35,13 @@ class MoviesControllerTest {
 		theGoonies = new MovieItem();
 		theGoonies.setId(1337);
 		theGoonies.setTitle("The Goonies");
-		movies.add(new MovieView(theGoonies));
+		movies.add(toMovieView.transform(theGoonies));
 
 		initMocks(this);
 		when(composer.searchMovies(anyString())).thenReturn(movies);
 		when(composer.getPopularMovies()).thenReturn(movies);
 		when(composer.getMoviesByGenre(any(List.class))).thenReturn(movies);
-		when(composer.getMovieById(1337)).thenReturn(new MovieView(theGoonies));
+		when(composer.getMovieById(1337)).thenReturn(toMovieView.transform(theGoonies));
 		when(composer.getMovieGenres()).thenReturn(new ArrayList<>());
 	}
 

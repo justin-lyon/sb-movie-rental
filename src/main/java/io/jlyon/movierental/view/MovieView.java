@@ -28,22 +28,7 @@ public class MovieView {
 	@JsonProperty
 	private boolean isVideo;
 
-	public MovieView(MovieItem mi) {
-		this.setId(mi.getId().toString());
-		this.setTitle(mi.getTitle());
-		this.setOriginalTitle(mi.getOriginalTitle());
-		this.setOriginalLanguage(mi.getOriginalLanguage());
-		this.setPosterPath(mi.getPosterPath());
-		this.setOverview(mi.getOverview());
-		this.setReleaseDate(mi.getReleaseDate() != null && !mi.getReleaseDate().isEmpty() ? LocalDate.parse(mi.getReleaseDate()) : null);
-		this.setBackdropPath(mi.getBackdropPath());
-		this.setGenreIds(mi.getGenreIds());
-		this.setVoteCount(mi.getVoteCount());
-		this.setPopularity(mi.getPopularity());
-		this.setVoteAverage(mi.getVoteAverage());
-		this.setIsAdult(mi.isAdult());
-		this.setIsVideo(mi.isVideo());
-	}
+	public MovieView() {}
 
 	public String getId() {
 		return id;
