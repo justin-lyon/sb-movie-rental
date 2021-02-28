@@ -23,10 +23,10 @@ public class SearchService {
 
 	public MovieSearchResponse searchMovies(@NotNull String queryString) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.put("query", Collections.singletonList(queryString));
-		params.put("page", Collections.singletonList(String.valueOf(1)));
-		params.put("includeAdult", Collections.singletonList(String.valueOf(false)));
-		params.put("region", Collections.singletonList("US"));
+		params.add("query", queryString);
+		params.add("page", String.valueOf(1));
+		params.add("includeAdult", String.valueOf(false));
+		params.add("region", "US");
 		return this.searchMovies(queryString, params);
 	}
 

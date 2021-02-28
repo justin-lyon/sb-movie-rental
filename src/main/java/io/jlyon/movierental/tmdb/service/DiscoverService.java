@@ -9,9 +9,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static io.jlyon.movierental.tmdb.TmdbWebClientConfig.WEB_CLIENT_NAME;
 
