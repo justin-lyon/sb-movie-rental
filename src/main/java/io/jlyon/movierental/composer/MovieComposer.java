@@ -27,7 +27,7 @@ public class MovieComposer {
 	@Autowired
 	private DiscoverService discoverService;
 
-	private MovieItemToView toMovieView;
+	private final MovieItemToView toMovieView = new MovieItemToView();
 
 	public List<MovieView> searchMovies(@NotNull final String searchTerm) {
 		return searchService.searchMovies(searchTerm)
