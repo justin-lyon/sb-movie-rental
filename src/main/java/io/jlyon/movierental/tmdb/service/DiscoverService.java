@@ -30,6 +30,7 @@ public class DiscoverService {
 		return this.getDiscoverMovie(withGenres);
 	}
 
+	// Omnibus request method
 	public DiscoverMovieResponse getDiscoverMovie(@NotNull MultiValueMap<String, String> params) {
 		return wcb.build()
 			.get()
