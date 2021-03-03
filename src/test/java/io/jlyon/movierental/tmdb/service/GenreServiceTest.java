@@ -1,6 +1,5 @@
 package io.jlyon.movierental.tmdb.service;
 
-import io.jlyon.movierental.tmdb.model.DiscoverMovieResponse;
 import io.jlyon.movierental.tmdb.model.GenreResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +52,7 @@ class GenreServiceTest {
 
 	@Test
 	public void getAllGenres_shouldInvokeWCB() {
-		GenreResponse result = service.getAllGenres();
+		GenreResponse actual = service.getAllGenres();
 
 		verify(wcb, times(1)).build();
 		verify(wc, times(1)).get();
@@ -62,6 +61,6 @@ class GenreServiceTest {
 		verify(resSpec, times(1)).bodyToMono(GenreResponse.class);
 		verify(monoResponse, times(1)).block();
 
-		assertEquals(response, result);
+		assertEquals(response, actual);
 	}
 }

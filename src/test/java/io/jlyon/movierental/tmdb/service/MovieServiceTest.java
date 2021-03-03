@@ -53,7 +53,7 @@ class MovieServiceTest {
 
 	@Test
 	public void getMovieById_givenId_shouldInvokeWCB() {
-		MovieItem result = service.getMovieById(9009);
+		MovieItem actual = service.getMovieById(9009);
 
 		verify(wcb, times(1)).build();
 		verify(wc, times(1)).get();
@@ -62,6 +62,6 @@ class MovieServiceTest {
 		verify(resSpec, times(1)).bodyToMono(MovieItem.class);
 		verify(monoMovieItem, times(1)).block();
 
-		assertEquals(beeMovie, result);
+		assertEquals(beeMovie, actual);
 	}
 }
