@@ -4,9 +4,10 @@ import io.jlyon.movierental.tmdb.model.MovieItem;
 import io.jlyon.movierental.view.MovieView;
 
 import java.time.LocalDate;
+import java.util.function.Function;
 
-public class MovieItemToView implements Transformer<MovieItem, MovieView> {
-	public MovieView transform(MovieItem item) {
+public class MovieItemToView implements Function<MovieItem, MovieView> {
+	public MovieView apply(MovieItem item) {
 		MovieView view = new MovieView();
 		view.setId(item.getId().toString());
 		view.setTitle(item.getTitle());

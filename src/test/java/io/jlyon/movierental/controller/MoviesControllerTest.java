@@ -35,13 +35,13 @@ class MoviesControllerTest {
 		theGoonies = new MovieItem();
 		theGoonies.setId(1337);
 		theGoonies.setTitle("The Goonies");
-		movies.add(toMovieView.transform(theGoonies));
+		movies.add(toMovieView.apply(theGoonies));
 
 		initMocks(this);
 		when(composer.searchMovies(anyString())).thenReturn(movies);
 		when(composer.getPopularMovies()).thenReturn(movies);
 		when(composer.getMoviesByGenre(any(List.class))).thenReturn(movies);
-		when(composer.getMovieById(1337)).thenReturn(toMovieView.transform(theGoonies));
+		when(composer.getMovieById(1337)).thenReturn(toMovieView.apply(theGoonies));
 		when(composer.getMovieGenres()).thenReturn(new ArrayList<>());
 	}
 

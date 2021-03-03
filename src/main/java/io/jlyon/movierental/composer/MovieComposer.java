@@ -33,7 +33,7 @@ public class MovieComposer {
 		return searchService.searchMovies(searchTerm)
 			.getResults()
 			.stream()
-			.map(toMovieView::transform)
+			.map(toMovieView)
 			.collect(Collectors.toList());
 	}
 
@@ -41,7 +41,7 @@ public class MovieComposer {
 		return discoverService.getDiscoverMovie()
 			.getResults()
 			.stream()
-			.map(toMovieView::transform)
+			.map(toMovieView)
 			.collect(Collectors.toList());
 	}
 
@@ -52,12 +52,12 @@ public class MovieComposer {
 
 		return discoverService.getDiscoverMovie(genreIds).getResults()
 			.stream()
-			.map(toMovieView::transform)
+			.map(toMovieView)
 			.collect(Collectors.toList());
 	}
 
 	public MovieView getMovieById(@NotNull final int movieId) {
-		return toMovieView.transform(movieService.getMovieById(movieId));
+		return toMovieView.apply(movieService.getMovieById(movieId));
 	}
 
 	public List<GenreOption> getMovieGenres() {
