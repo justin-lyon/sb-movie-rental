@@ -53,7 +53,7 @@ class MovieComposerTest {
 		when(searchService.searchMovies(anyString())).thenReturn(searchResponse);
 		when(discoverService.getDiscoverMovie()).thenReturn(discoverResponse);
 		when(discoverService.getDiscoverMovie(any(List.class))).thenReturn(discoverResponse);
-		when(movieService.queryMovieById(anyInt())).thenReturn(theGoonies);
+		when(movieService.getMovieById(anyInt())).thenReturn(theGoonies);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ class MovieComposerTest {
 	public void getMovieById_givenId_shouldInvokeMovieService() {
 		int movieId = 1337;
 		composer.getMovieById(movieId);
-		verify(movieService, times(1)).queryMovieById(movieId);
+		verify(movieService, times(1)).getMovieById(movieId);
 	}
 
 	@Test

@@ -16,7 +16,7 @@ public class MovieService {
 	@Qualifier(WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public MovieItem queryMovieById(@NotNull int movieId) {
+	public MovieItem getMovieById(@NotNull int movieId) {
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder

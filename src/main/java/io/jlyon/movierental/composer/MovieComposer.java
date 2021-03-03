@@ -57,7 +57,7 @@ public class MovieComposer {
 	}
 
 	public MovieView getMovieById(@NotNull final int movieId) {
-		return toMovieView.transform(movieService.queryMovieById(movieId));
+		return toMovieView.transform(movieService.getMovieById(movieId));
 	}
 
 	public List<GenreOption> getMovieGenres() {
