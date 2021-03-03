@@ -15,7 +15,7 @@ public class GenreService {
 	@Qualifier(WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public GenreResponse queryAllGenres() {
+	public GenreResponse getAllGenres() {
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder
