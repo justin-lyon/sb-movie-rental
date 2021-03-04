@@ -27,10 +27,10 @@ public class MoviesController {
 		return composer.getPopularMovies();
 	}
 
-	@GetMapping(params = "searchString")
-	public List<MovieView> searchMovies(@RequestParam @NotNull final String searchString) {
-		log.info("Searching Movies for: {}...", searchString);
-		return composer.searchMovies(searchString);
+	@GetMapping(params = "searchTerm")
+	public List<MovieView> searchMovies(@RequestParam @NotNull final String searchTerm) {
+		log.info("Searching Movies for: {}...", searchTerm);
+		return composer.searchMovies(searchTerm);
 	}
 
 	@GetMapping(params = "genres")

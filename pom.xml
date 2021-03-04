@@ -160,5 +160,15 @@
 				<spring.profiles.active>secrets</spring.profiles.active>
 			</properties>
 		</profile>
+
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>local</spring.profiles.active>
+			</properties>
+		</profile>
 	</profiles>
 </project>
