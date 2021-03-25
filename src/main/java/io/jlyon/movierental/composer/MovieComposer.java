@@ -47,8 +47,9 @@ public class MovieComposer {
 			.collect(Collectors.toList());
 	}
 
-	public List<MovieView> filterMovies(@NotNull int limit, List<String> genres, Date minReleaseDate, Date maxReleaseDate) {
+	public List<MovieView> filterMovies(@NotNull int limit, @NotNull String sortBy, @NotNull String sortDirection, List<String> genres, Date minReleaseDate, Date maxReleaseDate) {
 		MultiValueMap params = new LinkedMultiValueMap<String, String>();
+		params.put("sort_by", Collections.singletonList(sortBy + "." + sortDirection));
 		if (genres != null && !genres.isEmpty()) {
 			List<String> genreIds = getGenreIds(genres);
 			params.put("with_genres", genreIds);

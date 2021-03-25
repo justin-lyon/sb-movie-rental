@@ -49,18 +49,20 @@ public class MoviesController {
 //		@RequestParam(required = false) final Date maxReleaseDate
 //	) {
 //
-//		return this.filterMovies(20, genres, minReleaseDate, maxReleaseDate);
+//		return this.filterMovies(20, "popularity", genres, minReleaseDate, maxReleaseDate);
 //	}
 
 	@GetMapping("/filter")
 	public List<MovieView> filterMovies(
-		@RequestParam(required = false) final int limit,
+		@RequestParam(required = true) @NotNull final int limit,
+		@RequestParam(required = true) @NotNull final String sortBy,
+		@RequestParam(required = true) @NotNull final String sortDirection,
 		@RequestParam(required = false) final List<String> genres,
 		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final Date minReleaseDate,
 		@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final Date maxReleaseDate
 	) {
 
-		return composer.filterMovies(limit, genres, minReleaseDate, maxReleaseDate);
+		return composer.filterMovies(limit, sortBy.toLowerCase(), sortDirection.toLowerCase(), genres, minReleaseDate, maxReleaseDate);
 	}
 
 //	@GetMapping(params = "movieIds")
