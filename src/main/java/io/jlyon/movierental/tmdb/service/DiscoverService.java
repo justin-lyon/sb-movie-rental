@@ -9,6 +9,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Collections;
 import java.util.List;
 
 import static io.jlyon.movierental.tmdb.TmdbWebClientConfig.WEB_CLIENT_NAME;
@@ -32,6 +33,7 @@ public class DiscoverService {
 
 	// Omnibus request method
 	public DiscoverMovieResponse getDiscoverMovie(@NotNull MultiValueMap<String, String> params) {
+		params.put("region", Collections.singletonList("US"));
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder
