@@ -13,7 +13,7 @@ public class MovieDetail {
 	@JsonProperty("adult")
 	private boolean isAdult;
 	@JsonProperty("backdrop_path")
-	private boolean backdropPath;
+	private String backdropPath;
 	@JsonProperty("belongs_to_collection")
 	private List<CollectionItem> belongsToCollection;
 	private int budget;
@@ -49,6 +49,12 @@ public class MovieDetail {
 	@JsonProperty("vote_count")
 	private int voteCount;
 
+	/**
+	 * Appended by GET /movie/:id with query param ?append_to_response=release_dates
+	 */
+	@JsonProperty("release_dates")
+	private List<MovieReleasesGetResponse> releaseDates;
+
 	public boolean getIsAdult() {
 		return isAdult;
 	}
@@ -57,11 +63,11 @@ public class MovieDetail {
 		isAdult = adult;
 	}
 
-	public boolean isBackdropPath() {
+	public String getBackdropPath() {
 		return backdropPath;
 	}
 
-	public void setBackdropPath(boolean backdropPath) {
+	public void setBackdropPath(String backdropPath) {
 		this.backdropPath = backdropPath;
 	}
 

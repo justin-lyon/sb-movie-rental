@@ -1,6 +1,7 @@
 package io.jlyon.movierental.tmdb.service;
 
 import com.sun.istack.NotNull;
+import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,14 +17,14 @@ public class MovieService {
 	@Qualifier(WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public MovieItem getMovieById(@NotNull int movieId) {
+	public MovieDetail getMovieById(@NotNull int movieId) {
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder
 				.path(PATH + "/" + movieId)
 				.build())
 			.retrieve()
-			.bodyToMono(MovieItem.class)
+			.bodyToMono(MovieDetail.class)
 			.block();
 	}
 }

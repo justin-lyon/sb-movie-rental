@@ -6,6 +6,7 @@ import io.jlyon.movierental.tmdb.model.Genre;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
 import io.jlyon.movierental.tmdb.service.SearchService;
+import io.jlyon.movierental.transformer.MovieDetailToView;
 import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.GenreOption;
 import io.jlyon.movierental.view.MovieView;
@@ -27,13 +28,14 @@ public class MovieComposer {
 	@Autowired
 	private DiscoverService discoverService;
 
-	private final MovieItemToView toMovieView = new MovieItemToView();
+	private final MovieItemToView movieItemToView = new MovieItemToView();
+	private final MovieDetailToView movieDetailToView = new MovieDetailToView();
 
 	public List<MovieView> searchMovies(@NotNull final String searchTerm) {
 		return searchService.searchMovies(searchTerm)
 			.getResults()
 			.stream()
-			.map(toMovieView)
+			.map(movieItemToView)
 			.collect(Collectors.toList());
 	}
 
@@ -41,7 +43,7 @@ public class MovieComposer {
 		return discoverService.getDiscoverMovie()
 			.getResults()
 			.stream()
-			.map(toMovieView)
+			.map(movieItemToView)
 			.collect(Collectors.toList());
 	}
 
@@ -52,12 +54,12 @@ public class MovieComposer {
 
 		return discoverService.getDiscoverMovie(genreIds).getResults()
 			.stream()
-			.map(toMovieView)
+			.map(movieItemToView)
 			.collect(Collectors.toList());
 	}
 
 	public MovieView getMovieById(@NotNull final int movieId) {
-		return toMovieView.apply(movieService.getMovieById(movieId));
+		return movieDetailToView.apply(movieService.getMovieById(movieId));
 	}
 
 	public List<GenreOption> getMovieGenres() {
