@@ -4,6 +4,8 @@ import io.jlyon.movierental.tmdb.model.*;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
 import io.jlyon.movierental.tmdb.service.SearchService;
+import io.jlyon.movierental.transformer.MovieDetailToView;
+import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.GenreOption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,10 @@ class MovieComposerTest {
 	private MovieService movieService;
 	@Mock
 	private DiscoverService discoverService;
+	@Mock
+	private MovieItemToView toMovieItemView;
+	@Mock
+	private MovieDetailToView toMovieDetailView;
 
 	private final DiscoverMovieResponse discoverResponse = new DiscoverMovieResponse();
 	private final MovieSearchResponse searchResponse = new MovieSearchResponse();

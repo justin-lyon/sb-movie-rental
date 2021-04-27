@@ -2,9 +2,11 @@ package io.jlyon.movierental.transformer;
 
 import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.view.MovieDetailView;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 
+@Service
 public class MovieDetailToView implements Function<MovieDetail, MovieDetailView> {
 	@Override
 	public MovieDetailView apply(MovieDetail md) {
