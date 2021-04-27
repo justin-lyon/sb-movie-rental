@@ -1,9 +1,6 @@
 package io.jlyon.movierental.composer;
 
-import io.jlyon.movierental.tmdb.model.DiscoverMovieResponse;
-import io.jlyon.movierental.tmdb.model.Genre;
-import io.jlyon.movierental.tmdb.model.MovieItem;
-import io.jlyon.movierental.tmdb.model.MovieSearchResponse;
+import io.jlyon.movierental.tmdb.model.*;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
 import io.jlyon.movierental.tmdb.service.SearchService;
@@ -40,11 +37,14 @@ class MovieComposerTest {
 	private final DiscoverMovieResponse discoverResponse = new DiscoverMovieResponse();
 	private final MovieSearchResponse searchResponse = new MovieSearchResponse();
 	private final MovieItem theGoonies = new MovieItem();
+	private final MovieDetail mortalKombat = new MovieDetail();
 
 	@BeforeEach
 	public void setup() {
 		theGoonies.setId(1337);
 		theGoonies.setTitle("The Goonies");
+		mortalKombat.setId(460465);
+		mortalKombat.setOriginalTitle("Mortal Kombat");
 
 		discoverResponse.setResults(Collections.singletonList(theGoonies));
 		searchResponse.setResults(Collections.singletonList(theGoonies));
@@ -53,7 +53,7 @@ class MovieComposerTest {
 		when(searchService.searchMovies(anyString())).thenReturn(searchResponse);
 		when(discoverService.getDiscoverMovie()).thenReturn(discoverResponse);
 		when(discoverService.getDiscoverMovie(any(List.class))).thenReturn(discoverResponse);
-		when(movieService.getMovieById(anyInt())).thenReturn(theGoonies);
+		when(movieService.getMovieById(anyInt())).thenReturn(mortalKombat);
 	}
 
 	@Test

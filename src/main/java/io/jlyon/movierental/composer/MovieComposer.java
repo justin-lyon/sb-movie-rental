@@ -9,6 +9,7 @@ import io.jlyon.movierental.tmdb.service.SearchService;
 import io.jlyon.movierental.transformer.MovieDetailToView;
 import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.GenreOption;
+import io.jlyon.movierental.view.MovieDetailView;
 import io.jlyon.movierental.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class MovieComposer {
 			.collect(Collectors.toList());
 	}
 
-	public MovieView getMovieById(@NotNull final int movieId) {
+	public MovieDetailView getMovieById(@NotNull final int movieId) {
 		return movieDetailToView.apply(movieService.getMovieById(movieId));
 	}
 
