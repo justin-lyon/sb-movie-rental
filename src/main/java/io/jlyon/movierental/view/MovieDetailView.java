@@ -1,9 +1,13 @@
 package io.jlyon.movierental.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.jlyon.movierental.tmdb.model.*;
+import io.jlyon.movierental.tmdb.model.CollectionItem;
+import io.jlyon.movierental.tmdb.model.GenreItem;
+import io.jlyon.movierental.tmdb.model.LanguageItem;
+import io.jlyon.movierental.tmdb.model.MovieReleasesGetResponse;
+import io.jlyon.movierental.tmdb.model.ProductionCompany;
+import io.jlyon.movierental.tmdb.model.ProductionCountry;
 
 import java.time.LocalDate;
 import java.util.List;
