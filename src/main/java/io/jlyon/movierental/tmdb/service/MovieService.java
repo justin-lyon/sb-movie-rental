@@ -2,7 +2,6 @@ package io.jlyon.movierental.tmdb.service;
 
 import com.sun.istack.NotNull;
 import io.jlyon.movierental.tmdb.model.MovieDetail;
-import io.jlyon.movierental.tmdb.model.MovieItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
