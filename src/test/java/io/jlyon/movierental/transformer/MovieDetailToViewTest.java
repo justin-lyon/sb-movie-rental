@@ -1,6 +1,7 @@
 package io.jlyon.movierental.transformer;
 
 import io.jlyon.movierental.tmdb.model.MovieDetail;
+import io.jlyon.movierental.tmdb.model.MovieReleasesGetResponse;
 import io.jlyon.movierental.view.MovieDetailView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,7 +74,7 @@ class MovieDetailToViewTest {
 		md.setProductionCompanies(Collections.emptyList());
 		md.setProductionCountries(Collections.emptyList());
 		md.setReleaseDate(LocalDate.now());
-		md.setReleaseDates(Collections.emptyList());
+		md.setReleaseDates(new MovieReleasesGetResponse());
 		md.setRevenue(1000000);
 		md.setRuntime(120);
 		md.setSpokenLanguages(Collections.emptyList());

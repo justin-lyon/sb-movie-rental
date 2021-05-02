@@ -43,7 +43,7 @@ public class MovieDetailView {
 	private Double voteAverage;
 	private int voteCount;
 
-	private List<MovieReleasesGetResponse> releaseDates;
+	private MovieReleasesGetResponse releaseDates;
 
 	public boolean getIsAdult() {
 		return isAdult;
@@ -173,11 +173,11 @@ public class MovieDetailView {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<MovieReleasesGetResponse> getReleaseDates() {
+	public MovieReleasesGetResponse getReleaseDates() {
 		return releaseDates;
 	}
 
-	public void setReleaseDates(List<MovieReleasesGetResponse> releaseDates) {
+	public void setReleaseDates(MovieReleasesGetResponse releaseDates) {
 		this.releaseDates = releaseDates;
 	}
 

@@ -24,6 +24,16 @@ public class MovieService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.put("append_to_response", Collections.singletonList("release_dates"));
 
+//		String responseString = wcb.build()
+//			.get()
+//			.uri(uriBuilder -> uriBuilder
+//				.path(PATH + "/" + movieId)
+//				.queryParams(params)
+//				.build())
+//			.retrieve()
+//			.bodyToMono(String.class)
+//			.block();
+
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder

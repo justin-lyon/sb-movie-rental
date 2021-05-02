@@ -13,4 +13,20 @@ public class CountryReleaseItem {
 	private String countryCode;
 	@JsonProperty("release_dates")
 	private List<ReleaseItem> releaseDates;
+
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public List<ReleaseItem> getReleaseDates() {
+		return releaseDates;
+	}
+
+	public void setReleaseDates(List<ReleaseItem> releaseDates) {
+		this.releaseDates = releaseDates;
+	}
 }

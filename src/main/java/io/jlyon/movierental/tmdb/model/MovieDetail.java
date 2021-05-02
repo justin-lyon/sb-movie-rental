@@ -54,7 +54,7 @@ public class MovieDetail {
 	 * Appended by GET /movie/:id with query param ?append_to_response=release_dates
 	 */
 	@JsonProperty("release_dates")
-	private List<MovieReleasesGetResponse> releaseDates;
+	private MovieReleasesGetResponse releaseDates;
 
 	public boolean getIsAdult() {
 		return isAdult;
@@ -184,11 +184,11 @@ public class MovieDetail {
 		this.releaseDate = releaseDate;
 	}
 
-	public List<MovieReleasesGetResponse> getReleaseDates() {
+	public MovieReleasesGetResponse getReleaseDates() {
 		return releaseDates;
 	}
 
-	public void setReleaseDates(List<MovieReleasesGetResponse> releaseDates) {
+	public void setReleaseDates(MovieReleasesGetResponse releaseDates) {
 		this.releaseDates = releaseDates;
 	}
 
