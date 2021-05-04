@@ -12,8 +12,13 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static java.lang.String.format;
+
 @Service
 public class MovieDetailToView implements Function<MovieDetail, MovieDetailView> {
+	public static final String ERROR_CANNOT_FIND_COUNTRY = "No CountryReleaseItem for ISO 3166-1 Country Code: %s";
+	public static final String ERROR_CANNOT_FIND_THEATRICAL_RELEASE = "No Theatrical Release (Type 3) found for Country Code: %s";
+	public static final String DEFAULT_COUNTRY_CODE = "US";
 	@Override
 	public MovieDetailView apply(MovieDetail md) {
 		MovieDetailView mv = new MovieDetailView();
@@ -56,11 +61,11 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 
 		Optional<CountryReleaseItem> possibleCountryReleaseItem = releaseResponse.getResults()
 			.stream()
-			.filter(countryReleaseItem -> countryReleaseItem.getCountryCode().equals("US"))
+			.filter(countryReleaseItem -> countryReleaseItem.getCountryCode().equals(DEFAULT_COUNTRY_CODE))
 			.findFirst();
 
 		if (possibleCountryReleaseItem.isEmpty()) {
-			throw new MovieRentalException("No CountryReleaseItem for ISO 3166-1 Country Code: US");
+			throw new MovieRentalException(format(ERROR_CANNOT_FIND_COUNTRY, DEFAULT_COUNTRY_CODE));
 		}
 
 		// Type == 3 is the Theatrical Release Date
@@ -72,7 +77,7 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 			.findFirst();
 
 		if (possibleDate.isEmpty()) {
-			throw new MovieRentalException("No Theatrical Release (Type 3) found for Country Code: US");
+			throw new MovieRentalException(format(ERROR_CANNOT_FIND_THEATRICAL_RELEASE, DEFAULT_COUNTRY_CODE));
 		}
 
 		return possibleDate.get().getReleaseDate();

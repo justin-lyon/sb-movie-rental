@@ -1,7 +1,9 @@
 package io.jlyon.movierental.transformer;
 
+import io.jlyon.movierental.tmdb.model.CountryReleaseItem;
 import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieReleasesGetResponse;
+import io.jlyon.movierental.tmdb.model.ReleaseItem;
 import io.jlyon.movierental.view.MovieDetailView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.mockito.InjectMocks;
 import java.time.LocalDate;
 import java.util.Collections;
 
+import static io.jlyon.movierental.transformer.MovieDetailToView.DEFAULT_COUNTRY_CODE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -55,6 +58,15 @@ class MovieDetailToViewTest {
 		assertEquals(md.getVoteCount(), mv.getVoteCount());
 	}
 
+	@Test
+	public void apply_givenDetailWithReleaseDates_shouldSetReleaseDateByISOCode() {
+		LocalDate yesterday = LocalDate.now().minusDays(1);
+		md.setReleaseDates(setAppendedReleaseDateResponse(yesterday));
+
+		MovieDetailView mv = transformer.apply(md);
+		assertEquals(yesterday, mv.getReleaseDate());
+	}
+
 	private void initMovieDetail() {
 		md = new MovieDetail();
 		md.setIsAdult(false);
@@ -82,5 +94,19 @@ class MovieDetailToViewTest {
 		md.setIsVideo(false);
 		md.setVoteAverage(9.0);
 		md.setVoteCount(2000);
+	}
+
+	private MovieReleasesGetResponse setAppendedReleaseDateResponse(LocalDate expected) {
+		ReleaseItem ri = new ReleaseItem();
+		ri.setType(3);
+		ri.setReleaseDate(expected);
+
+		CountryReleaseItem cri = new CountryReleaseItem();
+		cri.setCountryCode(DEFAULT_COUNTRY_CODE);
+		cri.setReleaseDates(Collections.singletonList(ri));
+
+		MovieReleasesGetResponse response = new MovieReleasesGetResponse();
+		response.setResults(Collections.singletonList(cri));
+		return response;
 	}
 }
