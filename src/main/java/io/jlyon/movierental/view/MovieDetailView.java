@@ -43,8 +43,6 @@ public class MovieDetailView {
 	private Double voteAverage;
 	private int voteCount;
 
-	private MovieReleasesGetResponse releaseDates;
-
 	public boolean getIsAdult() {
 		return isAdult;
 	}
@@ -171,14 +169,6 @@ public class MovieDetailView {
 
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
-	}
-
-	public MovieReleasesGetResponse getReleaseDates() {
-		return releaseDates;
-	}
-
-	public void setReleaseDates(MovieReleasesGetResponse releaseDates) {
-		this.releaseDates = releaseDates;
 	}
 
 	public int getRevenue() {

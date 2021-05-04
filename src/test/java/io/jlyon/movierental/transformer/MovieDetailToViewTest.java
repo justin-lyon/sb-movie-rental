@@ -44,7 +44,6 @@ class MovieDetailToViewTest {
 		assertEquals(md.getProductionCompanies(), mv.getProductionCompanies());
 		assertEquals(md.getProductionCountries(), mv.getProductionCountries());
 		assertEquals(md.getReleaseDate(), mv.getReleaseDate());
-		assertEquals(md.getReleaseDates(), mv.getReleaseDates());
 		assertEquals(md.getRevenue(), mv.getRevenue());
 		assertEquals(md.getRuntime(), mv.getRuntime());
 		assertEquals(md.getSpokenLanguages(), mv.getSpokenLanguages());
@@ -74,7 +73,6 @@ class MovieDetailToViewTest {
 		md.setProductionCompanies(Collections.emptyList());
 		md.setProductionCountries(Collections.emptyList());
 		md.setReleaseDate(LocalDate.now());
-		md.setReleaseDates(new MovieReleasesGetResponse());
 		md.setRevenue(1000000);
 		md.setRuntime(120);
 		md.setSpokenLanguages(Collections.emptyList());
