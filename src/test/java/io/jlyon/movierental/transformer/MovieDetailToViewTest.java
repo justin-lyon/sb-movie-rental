@@ -71,7 +71,7 @@ class MovieDetailToViewTest {
 		md = new MovieDetail();
 		md.setIsAdult(false);
 		md.setBackdropPath("url/to/backdrop.jpg");
-		md.setBelongsToCollection(Collections.emptyList());
+		md.setBelongsToCollection(null);
 		md.setBudget(100000);
 		md.setGenres(Collections.emptyList());
 		md.setHomepage("url/to/homepage.html");

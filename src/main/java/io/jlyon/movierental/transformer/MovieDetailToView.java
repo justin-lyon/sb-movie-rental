@@ -69,17 +69,24 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 		}
 
 		// Type == 3 is the Theatrical Release Date
-		Optional<ReleaseItem> possibleDate = possibleCountryReleaseItem
+		Optional<ReleaseItem> possibleTheatricalRelease = possibleCountryReleaseItem
 			.get()
 			.getReleaseDates()
 			.stream()
 			.filter(item -> item.getType() == 3)
 			.findFirst();
 
-		if (possibleDate.isEmpty()) {
-			throw new MovieRentalException(format(ERROR_CANNOT_FIND_THEATRICAL_RELEASE, DEFAULT_COUNTRY_CODE));
+		Optional<ReleaseItem> possibleNextBestRelease = possibleCountryReleaseItem
+			.get()
+			.getReleaseDates()
+			.stream()
+			.findFirst();
+
+		if (possibleTheatricalRelease.isEmpty()) {
+//			throw new MovieRentalException(format(ERROR_CANNOT_FIND_THEATRICAL_RELEASE, DEFAULT_COUNTRY_CODE));
+			return possibleNextBestRelease.get().getReleaseDate();
 		}
 
-		return possibleDate.get().getReleaseDate();
+		return possibleTheatricalRelease.get().getReleaseDate();
 	}
 }

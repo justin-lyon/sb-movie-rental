@@ -19,7 +19,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class MovieDetailView {
 	private boolean isAdult;
 	private String backdropPath;
-	private List<CollectionItem> belongsToCollection;
+	private CollectionItem belongsToCollection;
 	private int budget;
 	private List<GenreItem> genres;
 	private String homepage;
@@ -59,11 +59,11 @@ public class MovieDetailView {
 		this.backdropPath = backdropPath;
 	}
 
-	public List<CollectionItem> getBelongsToCollection() {
+	public CollectionItem getBelongsToCollection() {
 		return belongsToCollection;
 	}
 
-	public void setBelongsToCollection(List<CollectionItem> belongsToCollection) {
+	public void setBelongsToCollection(CollectionItem belongsToCollection) {
 		this.belongsToCollection = belongsToCollection;
 	}
 
