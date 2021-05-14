@@ -2,7 +2,10 @@ package io.jlyon.movierental.composer;
 
 import io.jlyon.movierental.accessor.UserAccessor;
 import io.jlyon.movierental.entity.UserEntity;
+import io.jlyon.movierental.transformer.NewUserViewToEntity;
+import io.jlyon.movierental.transformer.UserEntityToView;
 import io.jlyon.movierental.view.NewUserView;
+import io.jlyon.movierental.view.UserView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,10 +25,16 @@ class UserComposerTest {
 
 	@Mock
 	private UserAccessor accessor;
+	@Mock
+	private UserEntityToView toUserView;
+	@Mock
+	private NewUserViewToEntity toUserEntity;
 
 	@BeforeEach
 	public void setup() {
 		initMocks(this);
+		when(toUserEntity.apply(any(NewUserView.class))).thenReturn(new UserEntity());
+		when(toUserView.apply(any(UserEntity.class))).thenReturn(new UserView());
 		when(accessor.getOneById(any(UUID.class))).thenReturn(new UserEntity());
 		when(accessor.createOne(any(UserEntity.class))).thenReturn(new UserEntity());
 	}

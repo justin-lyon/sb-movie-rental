@@ -12,22 +12,6 @@ public class UserView {
 	private String username;
 	private String email;
 
-	public UserView() {}
-
-	public UserView(UserEntity ue) {
-		this.setId(ue.getId());
-		this.setUsername(ue.getUsername());
-		this.setEmail(ue.getEmail());
-	}
-
-	public UserEntity toUserEntity() {
-		UserEntity ue = new UserEntity();
-		ue.setUsername(this.getUsername());
-		ue.setEmail(this.getEmail());
-		ue.setId(this.getId());
-		return ue;
-	}
-
 	public UUID getId() {
 		return id;
 	}
