@@ -9,13 +9,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class GenreOption {
 	private String label;
 	private String value;
-	private Genre genre;
-
-	public GenreOption(Genre g) {
-		this.label = g.label();
-		this.value = String.valueOf(g.id());
-		this.genre = g;
-	}
 
 	public String getLabel() {
 		return label;
@@ -31,13 +24,5 @@ public class GenreOption {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public Genre getGenre() {
-		return genre;
-	}
-
-	public void setGenre(Genre genre) {
-		this.genre = genre;
 	}
 }

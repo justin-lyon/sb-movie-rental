@@ -6,6 +6,7 @@ import io.jlyon.movierental.tmdb.model.Genre;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
 import io.jlyon.movierental.tmdb.service.SearchService;
+import io.jlyon.movierental.transformer.GenreToOption;
 import io.jlyon.movierental.transformer.MovieDetailToView;
 import io.jlyon.movierental.transformer.MovieItemToView;
 import io.jlyon.movierental.view.GenreOption;
@@ -33,6 +34,8 @@ public class MovieComposer {
 	private MovieItemToView movieItemToView;
 	@Autowired
 	private MovieDetailToView movieDetailToView;
+	@Autowired
+	private GenreToOption toGenreOption;
 
 	public List<MovieView> searchMovies(@NotNull final String searchTerm) {
 		return searchService.searchMovies(searchTerm)
@@ -67,7 +70,7 @@ public class MovieComposer {
 
 	public List<GenreOption> getMovieGenres() {
 		return Arrays.stream(Genre.values())
-			.map(GenreOption::new)
+			.map(toGenreOption)
 			.collect(Collectors.toList());
 	}
 }
