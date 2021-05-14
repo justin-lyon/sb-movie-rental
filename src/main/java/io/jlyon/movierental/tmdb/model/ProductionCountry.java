@@ -11,11 +11,11 @@ public class ProductionCountry {
 	private String countryCode;
 	private String name;
 
-	public String getIsoCode() {
+	public String getCountryCode() {
 		return countryCode;
 	}
 
-	public void setIsoCode(String countryCode) {
+	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 	}
 
