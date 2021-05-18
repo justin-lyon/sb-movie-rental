@@ -14,15 +14,16 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-@JsonPropertyOrder({"id", "title"})
+@JsonPropertyOrder({"id", "title", "releaseDate"})
 public class MovieDetailView {
+	private int id;
+	private String title;
 	private boolean isAdult;
 	private String backdropPath;
 	private CollectionItem belongsToCollection;
 	private int budget;
 	private List<GenreItem> genres;
 	private String homepage;
-	private int id;
 	private String imdbId;
 	private String originalLanguage;
 	private String originalTitle;
@@ -37,7 +38,6 @@ public class MovieDetailView {
 	private List<LanguageItem> spokenLanguages;
 	private String status;
 	private String tagline;
-	private String title;
 	private boolean isVideo;
 	private Double voteAverage;
 	private int voteCount;
