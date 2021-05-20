@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
+import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 @Service
 public class MovieDetailToView implements Function<MovieDetail, MovieDetailView> {
@@ -64,7 +66,7 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 	}
 
 	private List<LanguageView> getSpokenLanguages(List<LanguageItem> items) {
-		return items
+		return defaultIfNull(items, Collections.<LanguageItem>emptyList())
 			.stream()
 			.map(toLanguageView)
 			.collect(Collectors.toList());

@@ -5,6 +5,7 @@ import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 import io.jlyon.movierental.transformer.MovieDetailToView;
 import io.jlyon.movierental.transformer.MovieItemToView;
+import io.jlyon.movierental.view.MovieDetailView;
 import io.jlyon.movierental.view.MovieView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +29,9 @@ class MoviesControllerTest {
 
 	@Mock
 	private MovieComposer composer;
-
+	@Mock
 	private MovieItemToView toMovieView = new MovieItemToView();
+	@Mock
 	private MovieDetailToView toMovieDetailView = new MovieDetailToView();
 
 	private MovieItem theGoonies = new MovieItem();
@@ -50,7 +52,7 @@ class MoviesControllerTest {
 		when(composer.searchMovies(anyString())).thenReturn(movies);
 		when(composer.getPopularMovies()).thenReturn(movies);
 		when(composer.getMoviesByGenre(any(List.class))).thenReturn(movies);
-		when(composer.getMovieById(1337)).thenReturn(toMovieDetailView.apply(mortalKombat));
+		when(composer.getMovieById(1337)).thenReturn(new MovieDetailView());
 		when(composer.getMovieGenres()).thenReturn(new ArrayList<>());
 	}
 

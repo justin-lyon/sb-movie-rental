@@ -1,24 +1,32 @@
 package io.jlyon.movierental.transformer;
 
 import io.jlyon.movierental.tmdb.model.CountryReleaseItem;
+import io.jlyon.movierental.tmdb.model.LanguageItem;
 import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieReleasesGetResponse;
 import io.jlyon.movierental.tmdb.model.ReleaseItem;
+import io.jlyon.movierental.view.LanguageView;
 import io.jlyon.movierental.view.MovieDetailView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.time.LocalDate;
 import java.util.Collections;
 
 import static io.jlyon.movierental.transformer.MovieDetailToView.DEFAULT_COUNTRY_CODE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 class MovieDetailToViewTest {
 	@InjectMocks
 	private MovieDetailToView transformer;
+
+	@Mock
+	private LanguageItemToView languageToView;
 
 	private MovieDetail md;
 
@@ -26,6 +34,8 @@ class MovieDetailToViewTest {
 	public void setup() {
 		initMocks(this);
 		initMovieDetail();
+
+		when(languageToView.apply(any(LanguageItem.class))).thenReturn(new LanguageView());
 	}
 
 	@Test
