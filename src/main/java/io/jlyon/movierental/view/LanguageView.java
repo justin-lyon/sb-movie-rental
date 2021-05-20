@@ -1,20 +1,20 @@
-package io.jlyon.movierental.tmdb.model;
+package io.jlyon.movierental.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-public class GenreItem {
-	private int id;
+public class LanguageView {
+	private String languageCode;
 	private String name;
 
-	public int getId() {
-		return id;
+	public String getLanguageCode() {
+		return languageCode;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setLanguageCode(String languageCode) {
+		this.languageCode = languageCode;
 	}
 
 	public String getName() {

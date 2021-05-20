@@ -2,7 +2,9 @@ package io.jlyon.movierental.controller;
 
 import com.sun.istack.NotNull;
 import io.jlyon.movierental.composer.MovieComposer;
+import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.view.GenreOption;
+import io.jlyon.movierental.view.MovieDetailView;
 import io.jlyon.movierental.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +43,7 @@ public class MoviesController {
 	}
 
 	@GetMapping("/{movieId}")
-	public MovieView getMovieById(@PathVariable final int movieId) {
+	public MovieDetailView getMovieById(@PathVariable final int movieId) {
 		log.info("Get movie: {}...", movieId);
 		return composer.getMovieById(movieId);
 	}

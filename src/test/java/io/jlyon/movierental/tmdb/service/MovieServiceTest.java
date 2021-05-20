@@ -1,5 +1,6 @@
 package io.jlyon.movierental.tmdb.service;
 
+import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,36 +33,36 @@ class MovieServiceTest {
 	@Mock
 	private WebClient.ResponseSpec resSpec;
 	@Mock
-	private Mono<MovieItem> monoMovieItem;
+	private Mono<MovieDetail> monoMovieDetail;
 
-	private final MovieItem beeMovie = new MovieItem();
-	
+	private final MovieDetail mortalKombat = new MovieDetail();
+
 	@BeforeEach
 	public void setup() {
-		beeMovie.setId(9009);
-		beeMovie.setTitle("Bee Movie");
-		
+		mortalKombat.setId(460465);
+		mortalKombat.setOriginalTitle("Mortal Kombat");
+
 		initMocks(this);
 
 		when(wcb.build()).thenReturn(wc);
 		when(wc.get()).thenReturn(rhus);
 		when(rhus.uri(any(Function.class))).thenReturn(reqSpec);
 		when(reqSpec.retrieve()).thenReturn(resSpec);
-		when(resSpec.bodyToMono(MovieItem.class)).thenReturn(monoMovieItem);
-		when(monoMovieItem.block()).thenReturn(beeMovie);
+		when(resSpec.bodyToMono(MovieDetail.class)).thenReturn(monoMovieDetail);
+		when(monoMovieDetail.block()).thenReturn(mortalKombat);
 	}
 
 	@Test
 	public void getMovieById_givenId_shouldInvokeWCB() {
-		MovieItem actual = service.getMovieById(9009);
+		MovieDetail actual = service.getMovieById(9009);
 
 		verify(wcb, times(1)).build();
 		verify(wc, times(1)).get();
 		verify(rhus, times(1)).uri(any(Function.class));
 		verify(reqSpec, times(1)).retrieve();
-		verify(resSpec, times(1)).bodyToMono(MovieItem.class);
-		verify(monoMovieItem, times(1)).block();
+		verify(resSpec, times(1)).bodyToMono(MovieDetail.class);
+		verify(monoMovieDetail, times(1)).block();
 
-		assertEquals(beeMovie, actual);
+		assertEquals(mortalKombat, actual);
 	}
 }

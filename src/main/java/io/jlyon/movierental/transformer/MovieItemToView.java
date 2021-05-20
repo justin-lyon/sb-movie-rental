@@ -2,10 +2,12 @@ package io.jlyon.movierental.transformer;
 
 import io.jlyon.movierental.tmdb.model.MovieItem;
 import io.jlyon.movierental.view.MovieView;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.function.Function;
 
+@Service
 public class MovieItemToView implements Function<MovieItem, MovieView> {
 	public MovieView apply(MovieItem item) {
 		MovieView view = new MovieView();

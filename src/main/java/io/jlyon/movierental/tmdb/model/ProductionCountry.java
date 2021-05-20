@@ -1,20 +1,22 @@
 package io.jlyon.movierental.tmdb.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-public class GenreItem {
-	private int id;
+public class ProductionCountry {
+	@JsonProperty("iso_3166_1")
+	private String countryCode;
 	private String name;
 
-	public int getId() {
-		return id;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
 
 	public String getName() {

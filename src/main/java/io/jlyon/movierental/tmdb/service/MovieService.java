@@ -1,11 +1,15 @@
 package io.jlyon.movierental.tmdb.service;
 
 import com.sun.istack.NotNull;
-import io.jlyon.movierental.tmdb.model.MovieItem;
+import io.jlyon.movierental.tmdb.model.MovieDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Collections;
 
 import static io.jlyon.movierental.tmdb.TmdbWebClientConfig.WEB_CLIENT_NAME;
 
@@ -16,14 +20,28 @@ public class MovieService {
 	@Qualifier(WEB_CLIENT_NAME)
 	private WebClient.Builder wcb;
 
-	public MovieItem getMovieById(@NotNull int movieId) {
+	public MovieDetail getMovieById(@NotNull int movieId) {
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.put("append_to_response", Collections.singletonList("release_dates"));
+
+//		String responseString = wcb.build()
+//			.get()
+//			.uri(uriBuilder -> uriBuilder
+//				.path(PATH + "/" + movieId)
+//				.queryParams(params)
+//				.build())
+//			.retrieve()
+//			.bodyToMono(String.class)
+//			.block();
+
 		return wcb.build()
 			.get()
 			.uri(uriBuilder -> uriBuilder
 				.path(PATH + "/" + movieId)
+				.queryParams(params)
 				.build())
 			.retrieve()
-			.bodyToMono(MovieItem.class)
+			.bodyToMono(MovieDetail.class)
 			.block();
 	}
 }

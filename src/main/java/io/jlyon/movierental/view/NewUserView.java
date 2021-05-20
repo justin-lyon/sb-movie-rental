@@ -9,16 +9,6 @@ public class NewUserView {
 	private String email;
 	private String password;
 
-	public NewUserView() {}
-
-	public UserEntity toUserEntity() {
-		UserEntity ue = new UserEntity();
-		ue.setUsername(this.getUsername());
-		ue.setEmail(this.getEmail());
-		ue.setPassword(this.getPassword());
-		return ue;
-	}
-
 	public String getUsername() {
 		return username;
 	}

@@ -1,7 +1,11 @@
-package io.jlyon.movierental.tmdb.model;
+package io.jlyon.movierental.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.jlyon.movierental.tmdb.model.CollectionItem;
+import io.jlyon.movierental.tmdb.model.GenreItem;
+import io.jlyon.movierental.tmdb.model.ProductionCompany;
+import io.jlyon.movierental.tmdb.model.ProductionCountry;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,59 +13,40 @@ import java.util.List;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-public class MovieDetail {
-	@JsonProperty("adult")
+@JsonPropertyOrder({"id", "title", "releaseDate"})
+public class MovieDetailView {
+	private int id;
+	private String title;
 	private boolean isAdult;
-	@JsonProperty("backdrop_path")
 	private String backdropPath;
-	@JsonProperty("belongs_to_collection")
 	private CollectionItem belongsToCollection;
 	private int budget;
 	private List<GenreItem> genres;
 	private String homepage;
-	private int id;
-	@JsonProperty("imdb_id")
 	private String imdbId;
-	@JsonProperty("original_language")
 	private String originalLanguage;
-	@JsonProperty("original_title")
 	private String originalTitle;
 	private String overview;
 	private Double popularity;
-	@JsonProperty("poster_path")
 	private String posterPath;
-	@JsonProperty("production_companies")
 	private List<ProductionCompany> productionCompanies;
-	@JsonProperty("production_countries")
 	private List<ProductionCountry> productionCountries;
-	@JsonProperty("release_date")
 	private LocalDate releaseDate;
 	private int revenue;
 	private Integer runtime;
-	@JsonProperty("spoken_languages")
-	private List<LanguageItem> spokenLanguages;
+	private List<LanguageView> spokenLanguages;
 	private String status;
 	private String tagline;
-	private String title;
-	@JsonProperty("video")
 	private boolean isVideo;
-	@JsonProperty("vote_average")
 	private Double voteAverage;
-	@JsonProperty("vote_count")
 	private int voteCount;
-
-	/**
-	 * Appended by GET /movie/:id with query param ?append_to_response=release_dates
-	 */
-	@JsonProperty("release_dates")
-	private MovieReleasesGetResponse releaseDates;
 
 	public boolean getIsAdult() {
 		return isAdult;
 	}
 
-	public void setIsAdult(boolean adult) {
-		isAdult = adult;
+	public void setIsAdult(boolean isAdult) {
+		this.isAdult = isAdult;
 	}
 
 	public String getBackdropPath() {
@@ -184,14 +169,6 @@ public class MovieDetail {
 		this.releaseDate = releaseDate;
 	}
 
-	public MovieReleasesGetResponse getReleaseDates() {
-		return releaseDates;
-	}
-
-	public void setReleaseDates(MovieReleasesGetResponse releaseDates) {
-		this.releaseDates = releaseDates;
-	}
-
 	public int getRevenue() {
 		return revenue;
 	}
@@ -208,11 +185,11 @@ public class MovieDetail {
 		this.runtime = runtime;
 	}
 
-	public List<LanguageItem> getSpokenLanguages() {
+	public List<LanguageView> getSpokenLanguages() {
 		return spokenLanguages;
 	}
 
-	public void setSpokenLanguages(List<LanguageItem> spokenLanguages) {
+	public void setSpokenLanguages(List<LanguageView> spokenLanguages) {
 		this.spokenLanguages = spokenLanguages;
 	}
 
@@ -244,8 +221,8 @@ public class MovieDetail {
 		return isVideo;
 	}
 
-	public void setIsVideo(boolean video) {
-		isVideo = video;
+	public void setIsVideo(boolean isVideo) {
+		this.isVideo = isVideo;
 	}
 
 	public Double getVoteAverage() {

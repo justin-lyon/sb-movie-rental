@@ -2,12 +2,14 @@ package io.jlyon.movierental.tmdb.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-public class GenreItem {
+public class MovieReleasesGetResponse {
 	private int id;
-	private String name;
+	private List<CountryReleaseItem> results;
 
 	public int getId() {
 		return id;
@@ -17,11 +19,11 @@ public class GenreItem {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public List<CountryReleaseItem> getResults() {
+		return results;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setResults(List<CountryReleaseItem> results) {
+		this.results = results;
 	}
 }

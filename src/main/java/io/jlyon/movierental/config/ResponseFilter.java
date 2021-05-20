@@ -17,7 +17,7 @@ public class ResponseFilter {
 	}
 
 	private void logResponse(ClientResponse res) {
-		log.info("Request: {}", res.statusCode());
+		log.info("Response Status Code: {}", res.statusCode());
 		log.trace("Headers: {}", res.toString());
 	}
 }
