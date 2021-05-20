@@ -2,15 +2,20 @@ package io.jlyon.movierental.transformer;
 
 import io.jlyon.movierental.exception.MovieRentalException;
 import io.jlyon.movierental.tmdb.model.CountryReleaseItem;
+import io.jlyon.movierental.tmdb.model.LanguageItem;
 import io.jlyon.movierental.tmdb.model.MovieDetail;
 import io.jlyon.movierental.tmdb.model.MovieReleasesGetResponse;
 import io.jlyon.movierental.tmdb.model.ReleaseItem;
+import io.jlyon.movierental.view.LanguageView;
 import io.jlyon.movierental.view.MovieDetailView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -19,6 +24,10 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 	public static final String ERROR_CANNOT_FIND_COUNTRY = "No CountryReleaseItem for ISO 3166-1 Country Code: %s";
 	public static final String ERROR_CANNOT_FIND_THEATRICAL_RELEASE = "No Theatrical Release (Type 3) found for Country Code: %s";
 	public static final String DEFAULT_COUNTRY_CODE = "US";
+
+	@Autowired
+	private LanguageItemToView toLanguageView;
+
 	@Override
 	public MovieDetailView apply(MovieDetail md) {
 		MovieDetailView mv = new MovieDetailView();
@@ -43,7 +52,9 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 
 		mv.setRevenue(md.getRevenue());
 		mv.setRuntime(md.getRuntime());
-		mv.setSpokenLanguages(md.getSpokenLanguages());
+		mv.setSpokenLanguages(
+			this.getSpokenLanguages(md.getSpokenLanguages())
+		);
 		mv.setStatus(md.getStatus());
 		mv.setTagline(md.getTagline());
 		mv.setTitle(md.getTitle());
@@ -51,6 +62,13 @@ public class MovieDetailToView implements Function<MovieDetail, MovieDetailView>
 		mv.setVoteAverage(md.getVoteAverage());
 		mv.setVoteCount(md.getVoteCount());
 		return mv;
+	}
+
+	private List<LanguageView> getSpokenLanguages(List<LanguageItem> items) {
+		return items
+			.stream()
+			.map(toLanguageView)
+			.collect(Collectors.toList());
 	}
 
 	private LocalDate getReleaseDate(MovieDetail md) {

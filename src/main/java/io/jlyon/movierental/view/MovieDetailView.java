@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import io.jlyon.movierental.tmdb.model.CollectionItem;
 import io.jlyon.movierental.tmdb.model.GenreItem;
-import io.jlyon.movierental.tmdb.model.LanguageItem;
 import io.jlyon.movierental.tmdb.model.ProductionCompany;
 import io.jlyon.movierental.tmdb.model.ProductionCountry;
 
@@ -35,7 +34,7 @@ public class MovieDetailView {
 	private LocalDate releaseDate;
 	private int revenue;
 	private Integer runtime;
-	private List<LanguageItem> spokenLanguages;
+	private List<LanguageView> spokenLanguages;
 	private String status;
 	private String tagline;
 	private boolean isVideo;
@@ -186,11 +185,11 @@ public class MovieDetailView {
 		this.runtime = runtime;
 	}
 
-	public List<LanguageItem> getSpokenLanguages() {
+	public List<LanguageView> getSpokenLanguages() {
 		return spokenLanguages;
 	}
 
-	public void setSpokenLanguages(List<LanguageItem> spokenLanguages) {
+	public void setSpokenLanguages(List<LanguageView> spokenLanguages) {
 		this.spokenLanguages = spokenLanguages;
 	}
 
