@@ -22,7 +22,6 @@ import static java.lang.String.format;
 @Service
 public class MovieDetailToView implements Function<MovieDetail, MovieDetailView> {
 	public static final String ERROR_CANNOT_FIND_COUNTRY = "No CountryReleaseItem for ISO 3166-1 Country Code: %s";
-	public static final String ERROR_CANNOT_FIND_THEATRICAL_RELEASE = "No Theatrical Release (Type 3) found for Country Code: %s";
 	public static final String DEFAULT_COUNTRY_CODE = "US";
 
 	@Autowired
