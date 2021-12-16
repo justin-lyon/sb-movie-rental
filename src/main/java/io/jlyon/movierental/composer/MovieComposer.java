@@ -2,6 +2,7 @@ package io.jlyon.movierental.composer;
 
 import com.sun.istack.NotNull;
 import io.jlyon.movierental.controller.MoviesController;
+import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.tmdb.model.Genre;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
@@ -13,6 +14,8 @@ import io.jlyon.movierental.view.GenreOption;
 import io.jlyon.movierental.view.MovieDetailView;
 import io.jlyon.movierental.view.MovieView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -46,6 +49,9 @@ public class MovieComposer {
 	}
 
 	public List<MovieView> getPopularMovies() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserEntity runningUser = (UserEntity) auth.getPrincipal();
+
 		return discoverService.getDiscoverMovie()
 			.getResults()
 			.stream()

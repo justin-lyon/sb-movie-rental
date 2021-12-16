@@ -1,5 +1,7 @@
 package io.jlyon.movierental.security;
 
+import io.jlyon.movierental.accessor.UserAccessor;
+import io.jlyon.movierental.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -19,11 +21,13 @@ import java.util.ArrayList;
 import static io.jlyon.movierental.security.SecurityConstants.BEARER_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+	private final UserAccessor userAccessor;
 	private final SecurityConfig securityConfig;
 
-	public JWTAuthorizationFilter(AuthenticationManager authManager, SecurityConfig sc) {
+	public JWTAuthorizationFilter(AuthenticationManager authManager, SecurityConfig sc, UserAccessor userAccessor) {
 		super(authManager);
 		this.securityConfig = sc;
+		this.userAccessor = userAccessor;
 	}
 
 	@Override
@@ -56,11 +60,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 				.build()
 				.parseClaimsJws(jwsString);
 
-			String user = jws.getBody().getSubject();
+			String userEmail = jws.getBody().getSubject();
 
-			if (user != null) {
+			if (userEmail != null) {
 				// new ArrayList means authorities/scopes
-				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+				UserEntity runningUser = userAccessor.getOneByEmail(userEmail);
+				return new UsernamePasswordAuthenticationToken(runningUser, null, new ArrayList<>());
 			}
 		}
 		return null;
