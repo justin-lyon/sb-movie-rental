@@ -1,6 +1,8 @@
 package io.jlyon.movierental.security;
 
 import com.sun.istack.NotNull;
+import io.jlyon.movierental.accessor.UserAccessor;
+import io.jlyon.movierental.entity.UserEntity;
 import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,9 +52,13 @@ class JWTAuthorizationFilterTest {
 	private FilterChain chain;
 	@Mock
 	private SecurityContext securityContext;
+	@Mock
+	private UserAccessor userAccessor;
 
+	private final String email = "bobsburgers@aol.net";
 	private final SecretKey secret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-	private final String MOCK_TOKEN = mockJws("bob", 1, secret);
+	private final String MOCK_TOKEN = mockJws(email, 1, secret);
+	private final UserEntity user = initUser(email);
 
 	@BeforeEach
 	public void setup() throws IOException, ServletException {
@@ -63,6 +70,8 @@ class JWTAuthorizationFilterTest {
 		when(config.getSecretKey()).thenReturn(secret);
 		SecurityContextHolder.setContext(securityContext);
 		doNothing().when(securityContext).setAuthentication(any(UsernamePasswordAuthenticationToken.class));
+
+		when(userAccessor.getOneByEmail(anyString())).thenReturn(user);
 	}
 
 	@Test
@@ -81,14 +90,22 @@ class JWTAuthorizationFilterTest {
 		verify(securityContext, times(1)).setAuthentication(any(UsernamePasswordAuthenticationToken.class));
 	}
 
-	private static String mockJws(String username, int hoursFromNow, SecretKey key) {
+	private static String mockJws(String email, int hoursFromNow, SecretKey key) {
 		return Jwts.builder()
 			.setHeaderParam(JwsHeader.KEY_ID, 1)
 			.setIssuer("io.jlyon.movierental")
-			.setSubject(username)
+			.setSubject(email)
 			.setExpiration(new Date(System.currentTimeMillis() + hoursToMillis(hoursFromNow)))
 			.signWith(key)
 			.compact();
+	}
+
+	private static UserEntity initUser(String email) {
+		UserEntity u = new UserEntity();
+		u.setId(UUID.randomUUID());
+		u.setEmail(email);
+		u.setUsername("bob");
+		return u;
 	}
 
 	private static int hoursToMillis(@NotNull int hours) {

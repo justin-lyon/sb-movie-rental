@@ -1,5 +1,6 @@
 package io.jlyon.movierental.composer;
 
+import io.jlyon.movierental.entity.UserEntity;
 import io.jlyon.movierental.tmdb.model.*;
 import io.jlyon.movierental.tmdb.service.DiscoverService;
 import io.jlyon.movierental.tmdb.service.MovieService;
@@ -7,11 +8,15 @@ import io.jlyon.movierental.tmdb.service.SearchService;
 import io.jlyon.movierental.transformer.GenreToOption;
 import io.jlyon.movierental.transformer.MovieDetailToView;
 import io.jlyon.movierental.transformer.MovieItemToView;
+import io.jlyon.movierental.transformer.UserEntityToView;
 import io.jlyon.movierental.view.GenreOption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,6 +42,7 @@ class MovieComposerTest {
 	private MovieService movieService;
 	@Mock
 	private DiscoverService discoverService;
+
 	@Mock
 	private MovieItemToView toMovieItemView;
 	@Mock
@@ -59,6 +66,13 @@ class MovieComposerTest {
 		searchResponse.setResults(Collections.singletonList(theGoonies));
 
 		initMocks(this);
+
+		Authentication auth = mock(Authentication.class);
+		SecurityContext securityContext = mock(SecurityContext.class);
+		SecurityContextHolder.setContext(securityContext);
+		when(securityContext.getAuthentication()).thenReturn(auth);
+		when(auth.getPrincipal()).thenReturn(new UserEntity());
+
 		when(searchService.searchMovies(anyString())).thenReturn(searchResponse);
 		when(discoverService.getDiscoverMovie()).thenReturn(discoverResponse);
 		when(discoverService.getDiscoverMovie(any(List.class))).thenReturn(discoverResponse);
