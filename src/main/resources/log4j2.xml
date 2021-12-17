@@ -25,7 +25,7 @@
 
     <Loggers>
         <!-- LOG everything at INFO level -->
-        <Root level="warn">
+        <Root level="all">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
@@ -39,6 +39,7 @@
         <Logger name="org.springframework" level="warn" />
         <Logger name="org.springframework.boot" level="warn" />
         <Logger name="org.springframework.security" level="info" />
+        <Logger name="org.springframework.security.web.csrf" level="info" />
         <Logger name="org.springframework.web" level="warn" />
         <Logger name="org.apache" level="warn" />
         <Logger name="org.hibernate" level="warn" />
